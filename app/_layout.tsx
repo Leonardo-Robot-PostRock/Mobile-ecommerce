@@ -1,0 +1,38 @@
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useEffect } from 'react';
+
+import { useFonts } from 'expo-font';
+import { SplashScreen, Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+
+import { useColorScheme } from '@/presentation/theme/hooks/use-color-scheme.web';
+import './global.css';
+
+SplashScreen.preventAutoHideAsync();
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  const [fontsLoaded, error] = useFonts({
+    "Kanit-Bold": require('../assets/fonts/Kanit-Bold.ttf'),
+    "Kanit-Regular": require('../assets/fonts/Kanit-Regular.ttf'),
+    "Kanit-Thin": require('../assets/fonts/Kanit-Thin.ttf'),
+  })
+
+  useEffect(() => {
+    if (error) throw error;
+
+    if (fontsLoaded) SplashScreen.hideAsync();
+
+  }, [fontsLoaded, error]);
+
+  if (!fontsLoaded && !error) return null;
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack screenOptions={{
+        headerShown: false
+      }}></Stack>
+      <StatusBar style="auto" />
+    </ThemeProvider>
+  );
+}
