@@ -23,7 +23,8 @@ cp .env.template .env
 Editar el archivo `.env` y completar:
 
 ```dotenv
-EXPO_PUBLIC_STAGE=development
+# Ambiente: dev o prod
+EXPO_PUBLIC_STAGE=dev
 EXPO_PUBLIC_API_URL=https://tu-api.com
 ```
 
@@ -184,8 +185,8 @@ bun start
 ### Variables de entorno disponibles
 
 ```dotenv
-# Ambiente (development, staging, production)
-EXPO_PUBLIC_STAGE=development
+# Ambiente (dev, prod)
+EXPO_PUBLIC_STAGE=dev
 
 # URL base (usada en todas las plataformas por defecto)
 EXPO_PUBLIC_API_URL=https://api.ejemplo.com
