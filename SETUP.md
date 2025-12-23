@@ -12,7 +12,7 @@ git clone <url-del-repositorio>
 cd products-app
 
 # Instalar dependencias
-npm install
+bun install
 
 # Crear archivo .env desde template
 cp .env.template .env
@@ -30,7 +30,7 @@ EXPO_PUBLIC_API_URL=https://tu-api.com
 ### 3. Iniciar la app
 
 ```bash
-npm start
+bun start
 ```
 
 ---
@@ -52,7 +52,7 @@ xcode-select --install
 ### Ejecutar en simulador iOS
 
 ```bash
-npm run ios
+bun run ios
 ```
 
 La primera vez puede tardar algunos minutos mientras construye el proyecto.
@@ -75,7 +75,7 @@ rm -rf Pods
 rm Podfile.lock
 pod install
 cd ..
-npm start
+bun start
 ```
 
 ---
@@ -115,7 +115,7 @@ source ~/.zshrc
 emulator -avd nombre_del_emulador
 
 # En otra terminal, ejecutar la app
-npm run android
+bun run android
 ```
 
 ### Troubleshooting Android
@@ -139,7 +139,7 @@ adb start-server
 Web es la opción más fácil para desarrollo inicial.
 
 ```bash
-npm run web
+bun run web
 ```
 
 Se abrirá automáticamente en `http://localhost:8081`
@@ -164,7 +164,7 @@ Es la forma más rápida de probar sin configurar emuladores.
 
 1. Ejecutar en tu PC:
 ```bash
-npm start
+bun start
 ```
 
 2. Seleccionar opción en la terminal:
@@ -238,13 +238,13 @@ react-native-debugger
 
 ```bash
 # Instalar paquete
-npm install nombre-del-paquete
+bun add nombre-del-paquete
 
 # O agregar como dev dependency
-npm install --save-dev nombre-del-paquete
+bun add --save-dev nombre-del-paquete
 
 # Reiniciar la app
-npm start
+bun start
 ```
 
 ---
@@ -253,18 +253,18 @@ npm start
 
 ### Limpiar caché de Expo
 ```bash
-npm start -- --clear
+bun start -- --clear
 ```
 
 ### Resetear proyecto completamente
 ```bash
-npm run reset-project
+bun run reset-project
 ```
 
-### Limpiar node_modules
+### Limpiar dependencias
 ```bash
-rm -rf node_modules
-npm install
+rm -rf node_modules bun.lockb
+bun install
 ```
 
 ---
@@ -272,7 +272,8 @@ npm install
 ## ✅ Checklist de Configuración Inicial
 
 - [ ] Node.js instalado (versión 18+)
-- [ ] Dependencias instaladas (`npm install`)
+- [ ] Bun instalado
+- [ ] Dependencias instaladas (`bun install`)
 - [ ] Archivo `.env` creado con variables
 - [ ] Para iOS: Xcode instalado
 - [ ] Para Android: Android Studio configurado
@@ -283,8 +284,8 @@ npm install
 ## 🆘 Soporte Rápido
 
 | Problema | Solución |
-|----------|----------|
-| La app no inicia | `npm start -- --clear` |
+|----------|----------bun start -- --clear` |
+| Error de módulos | `rm -rf node_modules bun.lockb && bun
 | Error de módulos | `rm -rf node_modules && npm install` |
 | Simulador no abre | Verificar que está instalado en las preferencias del IDE |
 | API no responde | Verificar URLs en `.env` y conexión de red |

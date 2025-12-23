@@ -15,10 +15,10 @@ Aplicación móvil de gestión de productos desarrollada con [Expo](https://expo
 Antes de comenzar, asegúrate de tener instalado:
 
 - **Node.js** (versión 18 o superior) - [Descargar](https://nodejs.org/)
-- **npm** (generalmente viene con Node.js)
+- **Bun** (para gestionar dependencias) - [Descargar](https://bun.sh)
 - **Expo CLI** (opcional, pero recomendado):
   ```bash
-  npm install -g expo-cli
+  bun install -g expo-cli
   ```
 
 ### Para desarrollo en iOS:
@@ -41,7 +41,7 @@ cd products-app
 ### 2. Instalar dependencias
 
 ```bash
-npm install
+bun install
 ```
 
 ### 3. Configurar variables de entorno
@@ -71,7 +71,7 @@ EXPO_PUBLIC_API_URL_ANDROID=https://api-android.example.com
 ### Iniciar el servidor de desarrollo
 
 ```bash
-npm start
+bun start
 ```
 
 Se abrirá una interfaz interactiva donde podrás seleccionar cómo ejecutar la app.
@@ -79,10 +79,10 @@ Se abrirá una interfaz interactiva donde podrás seleccionar cómo ejecutar la 
 ### En iOS (macOS)
 
 ```bash
-npm run ios
+bun run ios
 ```
 
-O presiona `i` en la terminal después de ejecutar `npm start`.
+O presiona `i` en la terminal después de ejecutar `bun start`.
 
 **Requisitos:**
 - Tener Xcode instalado
@@ -91,10 +91,10 @@ O presiona `i` en la terminal después de ejecutar `npm start`.
 ### En Android
 
 ```bash
-npm run android
+bun run android
 ```
 
-O presiona `a` en la terminal después de ejecutar `npm start`.
+O presiona `a` en la terminal después de ejecutar `bun start`.
 
 **Requisitos:**
 - Tener Android Studio instalado
@@ -103,55 +103,27 @@ O presiona `a` en la terminal después de ejecutar `npm start`.
 ### En Web
 
 ```bash
-npm run web
+bun run web
 ```
 
-O presiona `w` en la terminal después de ejecutar `npm start`.
+O presiona `w` en la terminal después de ejecutar `bun start`.
 
 ### Usando Expo Go (Recomendado para principiantes)
 
 1. Descargar la app [Expo Go](https://expo.dev/go) en tu dispositivo móvil
-2. Ejecutar: `npm start`
+2. Ejecutar: `bun start`
 3. Escanear el código QR que aparece en la terminal con tu dispositivo
 
-## 📁 Estructura del Proyecto
-
-```
-products-app/
-├── app/                    # Rutas y layouts (file-based routing)
-│   ├── _layout.tsx        # Layout principal
-│   ├── index.tsx          # Pantalla de inicio
-│   ├── (products-app)/    # Grupo de rutas de la app
-│   │   └── (home)/        # Rutas del home
-│   │       └── index.tsx
-│   └── auth/              # Rutas de autenticación
-│       ├── login/         # Pantalla de login
-│       └── register/      # Pantalla de registro
-├── assets/                # Recursos estáticos
-│   ├── fonts/             # Fuentes personalizadas
-│   └── images/            # Imágenes
-├── constants/             # Constantes de la app
-├── core/                  # Lógica de negocios
-│   └── auth/
-│       ├── actions/       # Acciones y funciones
-│       ├── api/           # Llamadas a API
-│       └── interface/     # Interfaces TypeScript
-├── presentation/          # Componentes y UI
-│   ├── auth/             # Componentes de autenticación
-│   └── theme/            # Temas y estilos globales
-└── tailwind.config.js    # Configuración de Tailwind
-```
-
-## 🔧 Scripts Disponibles
+##  Scripts Disponibles
 
 | Script | Descripción |
 |--------|-------------|
-| `npm start` | Inicia el servidor de desarrollo |
-| `npm run ios` | Ejecuta en simulador iOS |
-| `npm run android` | Ejecuta en emulador Android |
-| `npm run web` | Ejecuta en navegador web |
-| `npm run lint` | Ejecuta el linter del proyecto |
-| `npm run reset-project` | Resetea el proyecto a estado inicial |
+| `bun start` | Inicia el servidor de desarrollo |
+| `bun run ios` | Ejecuta en simulador iOS |
+| `bun run android` | Ejecuta en emulador Android |
+| `bun run web` | Ejecuta en navegador web |
+| `bun run lint` | Ejecuta el linter del proyecto |
+| `bun run reset-project` | Resetea el proyecto a estado inicial |
 
 ## 🎨 Tecnologías Utilizadas
 
