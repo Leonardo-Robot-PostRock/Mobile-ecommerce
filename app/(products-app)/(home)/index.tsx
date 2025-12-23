@@ -1,4 +1,4 @@
-import { ThemedText } from '@/presentation/theme/components/ThemeTextInput';
+import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
 import React from 'react';
 import { View } from 'react-native';
