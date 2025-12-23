@@ -55,8 +55,8 @@ cp .env.template .env
 Luego, completar las variables necesarias en `.env`:
 
 ```dotenv
-# Ambiente (development, staging, production)
-EXPO_PUBLIC_STAGE=development
+# Ambiente (dev, prod)
+EXPO_PUBLIC_STAGE=dev
 
 # URL base de la API
 EXPO_PUBLIC_API_URL=https://api.example.com
