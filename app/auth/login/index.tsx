@@ -1,4 +1,4 @@
-import { ThemedText } from '@/presentation/theme/components/themed-text'
+import { ThemedText } from '@/presentation/theme/components/ThemeTextInput'
 import { View } from 'react-native'
 
 const LoginScreen = () => {
