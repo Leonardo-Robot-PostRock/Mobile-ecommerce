@@ -9,7 +9,7 @@ import Animated, {
 
 import { useColorScheme } from '../hooks/use-color-scheme.web';
 import { useThemeColor } from '../hooks/use-theme-color';
-import { ThemedView } from './ThemedText';
+import { ThemedView } from './ThemedView';
 
 const HEADER_HEIGHT = 250;
 
