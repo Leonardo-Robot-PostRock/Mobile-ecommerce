@@ -40,7 +40,16 @@
           }
         }
       ],
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "customFonts": {
+            "Kanit-Bold": "./assets/fonts/Kanit-Bold.ttf",
+            "Kanit-Regular": "./assets/fonts/Kanit-Regular.ttf",
+            "Kanit-Thin": "./assets/fonts/Kanit-Thin.ttf"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

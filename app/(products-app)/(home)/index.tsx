@@ -8,9 +8,9 @@ const HomeScreen = () => {
 
     return (
         <View style={{ paddingTop: 100, paddingHorizontal: 20 }}>
-            <ThemedText style={{ color: primary, fontFamily: 'KanitBold' }}>HomeScreen</ThemedText>
-            <ThemedText style={{ fontFamily: 'KanitRegular' }}>HomeScreen</ThemedText>
-            <ThemedText style={{ fontFamily: 'KanitThin' }}>HomeScreen</ThemedText>
+            <ThemedText style={{ color: primary, fontFamily: 'Kanit-Bold' }}>HomeScreen</ThemedText>
+            <ThemedText style={{ fontFamily: 'Kanit-Regular' }}>HomeScreen</ThemedText>
+            <ThemedText style={{ fontFamily: 'Kanit-Thin' }}>HomeScreen</ThemedText>
         </View>
     )
 }
