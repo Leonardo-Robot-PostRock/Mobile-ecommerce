@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { useRef, useState } from 'react';
 import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
-import { useThemeColor } from '../hooks/use-theme-color';
+import { useThemeColor } from '../hooks/useThemeColor';
 
 interface Props extends TextInputProps {
     icon?: keyof typeof Ionicons.glyphMap;
