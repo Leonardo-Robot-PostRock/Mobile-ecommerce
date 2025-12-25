@@ -6,7 +6,7 @@ Aplicación móvil de gestión de productos desarrollada con [Expo](https://expo
 
 - **Autenticación**: Sistema de login y registro
 - **Gestión de Productos**: Visualización y administración de productos
-- **Diseño Responsivo**: Interfaz moderna con Tailwind CSS (NativeWind)
+- **Diseño Responsivo**: Interfaz moderna con React Native StyleSheet
 - **TypeScript**: Desarrollo seguro y tipado
 - **Multiplataforma**: iOS, Android y Web
 
@@ -130,7 +130,7 @@ O presiona `w` en la terminal después de ejecutar `bun start`.
 - **React Native** - Framework de desarrollo móvil
 - **Expo** - Plataforma para desarrollar apps React Native
 - **TypeScript** - Lenguaje tipado
-- **Tailwind CSS / NativeWind** - Estilos
+- **React Native StyleSheet** - Estilos
 - **Zustand** - Gestor de estado global
 - **Axios** - Cliente HTTP
 - **Expo Router** - Enrutamiento basado en archivos
@@ -141,7 +141,6 @@ O presiona `w` en la terminal después de ejecutar `bun start`.
 - [Documentación de Expo](https://docs.expo.dev/)
 - [Guía de Expo Router](https://docs.expo.dev/router/introduction/)
 - [Documentación de React Native](https://reactnative.dev/)
-- [Documentación de NativeWind](https://www.nativewind.dev/)
 
 ## 🤝 Contribuir
 
