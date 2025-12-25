@@ -6,8 +6,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { useColorScheme } from '@/presentation/theme/hooks/use-color-scheme.web';
-import './global.css';
+import { useColorScheme } from '@/presentation/theme/hooks/useColorSchemeWeb';
 
 SplashScreen.preventAutoHideAsync();
 

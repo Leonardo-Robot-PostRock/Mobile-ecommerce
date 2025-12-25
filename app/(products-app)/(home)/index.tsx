@@ -1,5 +1,5 @@
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
-import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
+import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -8,9 +8,9 @@ const HomeScreen = () => {
 
     return (
         <View style={{ paddingTop: 100, paddingHorizontal: 20 }}>
-            <ThemedText className='font-kanit-bold' style={{ color: primary }}>HomeScreen</ThemedText>
-            <ThemedText className='font-kanit-regular'>HomeScreen</ThemedText>
-            <ThemedText className='font-kanit-thin'>HomeScreen</ThemedText>
+            <ThemedText style={{ color: primary, fontFamily: 'KanitBold' }}>HomeScreen</ThemedText>
+            <ThemedText style={{ fontFamily: 'KanitRegular' }}>HomeScreen</ThemedText>
+            <ThemedText style={{ fontFamily: 'KanitThin' }}>HomeScreen</ThemedText>
         </View>
     )
 }
