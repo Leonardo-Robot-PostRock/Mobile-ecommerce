@@ -13,7 +13,7 @@ export interface InputField extends TextInputProps {
     icon?: keyof typeof Ionicons.glyphMap,
 }
 
-interface AuthFormProps {
+interface Props {
     title: string;
     subtitle: string;
     inputs: InputField[];
@@ -33,7 +33,7 @@ const AuthForm = ({
     linkText,
     linkLabel,
     linkHref,
-}: AuthFormProps) => {
+}: Props) => {
     const { height } = useWindowDimensions();
     const backgroundColor = useThemeColor({}, 'background');
 
