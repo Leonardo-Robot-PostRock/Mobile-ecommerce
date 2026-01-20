@@ -3,6 +3,9 @@ import { FormikHelpers } from 'formik';
 import { LOGIN_INPUTS } from '@/constants/auth';
 import { LoginFormValues, loginValidationSchema } from '@/core/auth/validations/schemas';
 import AuthForm from '@/presentation/auth/components/AuthForm';
+import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
+import { router } from 'expo-router';
+import { Alert } from 'react-native';
 
 const initialValues: LoginFormValues = {
     email: '',
@@ -10,13 +13,24 @@ const initialValues: LoginFormValues = {
 };
 
 const LoginScreen = () => {
+    const { login } = useAuthStore();
+
     const handleSubmit = async (values: LoginFormValues, formikHelpers: FormikHelpers<LoginFormValues>) => {
+        const { email, password } = values;
+
         try {
-            // TODO: Implementar lógica de login con la API
-            console.log('Login values:', values);
+            const wasSuccessful = await login(email, password);
+
+            if (wasSuccessful) {
+                router.replace('/');
+                return;
+            }
+
+            Alert.alert('Error', 'Correo electrónico o contraseña incorrectos.');
             // await authActions.login(values);
         } catch (error) {
-            formikHelpers.setStatus({ error: (error as Error).message });
+            console.log("error: ",error);
+            formikHelpers.setStatus({error: error});
         } finally {
             formikHelpers.setSubmitting(false);
         }
