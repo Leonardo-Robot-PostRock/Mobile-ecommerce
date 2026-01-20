@@ -3,13 +3,14 @@ import { LinkProps } from 'expo-router';
 
 import { KeyboardAvoidingView, ScrollView, TextInputProps, useWindowDimensions, View } from 'react-native';
 
+import { Formik, FormikHelpers, FormikProps } from 'formik';
+import * as yup from 'yup';
+
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedLink from '@/presentation/theme/components/ThemedLink';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
-import { Formik, FormikHelpers, FormikProps } from 'formik';
-import * as yup from 'yup';
 
 export interface InputField<T> extends TextInputProps {
     name: keyof T & string;
