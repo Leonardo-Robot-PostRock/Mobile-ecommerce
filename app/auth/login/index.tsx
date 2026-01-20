@@ -26,11 +26,9 @@ const LoginScreen = () => {
                 return;
             }
 
-            Alert.alert('Error', 'Correo electrónico o contraseña incorrectos.');
             // await authActions.login(values);
         } catch (error) {
-            console.log("error: ",error);
-            formikHelpers.setStatus({error: error});
+            Alert.alert('Error', 'Correo electrónico o contraseña incorrectos.');
         } finally {
             formikHelpers.setSubmitting(false);
         }
