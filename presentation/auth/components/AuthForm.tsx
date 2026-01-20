@@ -8,25 +8,24 @@ import ThemedLink from '@/presentation/theme/components/ThemedLink';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
-export interface InputField extends TextInputProps {
-    name: string;
+export interface InputField<T> extends TextInputProps {
+    name: keyof T & string;
     icon?: keyof typeof Ionicons.glyphMap;
 }
 
 interface Props<T extends Record<string, any>> {
     title: string;
     subtitle: string;
-    inputs: InputField[];
+    inputs: InputField<T>[];
     buttonText: string;
-    isLoading?: boolean;
     linkText: string;
     linkLabel: string;
     linkHref: string;
     initialValues: T;
-    validationSchema: yup.Schema;
+    validationSchema?: yup.ObjectSchema<any> | yup.Schema<any>;
     onSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void | Promise<void>;
 }
 
@@ -35,7 +34,6 @@ const AuthForm = <T extends Record<string, any>>({
     subtitle,
     inputs,
     buttonText,
-    isLoading = false,
     linkText,
     linkLabel,
     linkHref,
@@ -47,12 +45,12 @@ const AuthForm = <T extends Record<string, any>>({
     const backgroundColor = useThemeColor({}, 'background');
 
     return (
-        <Formik
+        <Formik<T>
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {({ handleChange, handleSubmit, values, errors, touched, isSubmitting, status }) => (
+            {({ handleChange, handleSubmit, values, errors, touched, isSubmitting, status }: FormikProps<T>) => (
                 <KeyboardAvoidingView
                     behavior='padding'
                     style={{ flex: 1 }}
@@ -67,18 +65,19 @@ const AuthForm = <T extends Record<string, any>>({
 
                         <View style={{ marginTop: 20 }}>
                             {inputs.map((input) => {
-                                const hasError = errors[input.name] && touched[input.name];
+                                const name = input.name as keyof T;
+                                const hasError = Boolean((errors as any)[name] && (touched as any)[name]);
                                 return (
-                                    <View key={input.name}>
+                                    <View key={String(input.name)}>
                                         <ThemedTextInput
                                             placeholder={input.placeholder}
                                             keyboardType={input.keyboardType}
                                             secureTextEntry={input.secureTextEntry}
                                             autoCapitalize={input.autoCapitalize}
                                             icon={input.icon}
-                                            value={values[input.name]}
-                                            onChangeText={handleChange(input.name)}
-                                            editable={!isSubmitting && !isLoading}
+                                            value={values[name] as unknown as string}
+                                            onChangeText={handleChange(String(name))}
+                                            editable={!isSubmitting}
                                             style={{ marginBottom: hasError ? 0 : 10 }}
                                         />
 
@@ -92,7 +91,7 @@ const AuthForm = <T extends Record<string, any>>({
                                                     marginLeft: 4,
                                                 }}
                                             >
-                                                {String(errors[input.name])}
+                                                {String((errors as any)[name])}
                                             </ThemedText>
                                         )}
                                     </View>
@@ -119,9 +118,9 @@ const AuthForm = <T extends Record<string, any>>({
                         <ThemedButton
                             onPress={handleSubmit as () => void}
                             icon='arrow-forward-outline'
-                            disabled={isSubmitting || isLoading}
+                            disabled={isSubmitting}
                         >
-                            {isSubmitting || isLoading ? 'Procesando...' : buttonText}
+                            {isSubmitting ? 'Procesando...' : buttonText}
                         </ThemedButton>
 
                         <View style={{ marginTop: 50 }} />
