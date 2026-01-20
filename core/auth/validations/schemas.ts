@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+
 export const loginValidationSchema = yup.object().shape({
     email: yup
         .string()
@@ -24,8 +26,8 @@ export const registerValidationSchema = yup.object().shape({
         .string()
         .min(6, 'La contraseña debe tener al menos 6 caracteres')
         .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-            'La contraseña debe contener mayúsculas, minúsculas y números'
+            PASSWORD_REGEX,
+            'La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número'
         )
         .required('La contraseña es requerida'),
 });
