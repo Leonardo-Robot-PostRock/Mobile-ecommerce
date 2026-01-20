@@ -52,7 +52,7 @@ const AuthForm = <T extends Record<string, any>>({
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {({ handleChange, handleSubmit, values, errors, touched, isSubmitting }) => (
+            {({ handleChange, handleSubmit, values, errors, touched, isSubmitting, status }) => (
                 <KeyboardAvoidingView
                     behavior='padding'
                     style={{ flex: 1 }}
@@ -100,10 +100,24 @@ const AuthForm = <T extends Record<string, any>>({
                             })}
                         </View>
 
+                        {status?.error && (
+                            <ThemedText
+                                style={{
+                                    color: '#FF6B6B',
+                                    fontSize: 13,
+                                    marginTop: 8,
+                                    marginBottom: 8,
+                                    textAlign: 'center',
+                                }}
+                            >
+                                {typeof status.error === 'string' ? status.error : String(status.error)}
+                            </ThemedText>
+                        )}
+
                         <View style={{ marginTop: 10 }} />
 
                         <ThemedButton
-                            onPress={handleSubmit as any}
+                            onPress={handleSubmit as () => void}
                             icon='arrow-forward-outline'
                             disabled={isSubmitting || isLoading}
                         >
