@@ -24,8 +24,8 @@ const productsApi = axios.create({
 productsApi.interceptors.request.use(async (config) => {
     //Verificar si tenemos un token en secure storage
     const token = await SecureStorageAdapter.getItem('token');
-    
-    if(token){
+
+    if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -65,3 +65,14 @@ export const authCheckStatus = async () => {
 }
 
 //TODO: Tarea: hacer el register
+export const authRegister = async (email: string, password: string, fullName: string,) => {
+    email = email.toLocaleLowerCase();
+
+    try {
+        const { data } = await productsApi.post<AuthResponse>('/auth/register', { email, password, fullName });
+
+        return returnUserToken(data)
+    } catch (error) {
+        throw new Error('User and/or password are not valid');
+    }
+}
