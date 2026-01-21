@@ -88,6 +88,10 @@ O presiona `i` en la terminal después de ejecutar `bun start`.
 - Tener Xcode instalado
 - Haber aceptado la licencia de Xcode
 
+### envs
+
+- Llenar variables de entorno con las respectivas direcciones IP para android y ios.
+
 ### En Android
 
 ```bash
