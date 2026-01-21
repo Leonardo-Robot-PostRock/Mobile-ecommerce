@@ -12,7 +12,7 @@ import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 
-export interface InputField<T> extends TextInputProps {
+interface InputField<T> extends TextInputProps {
     name: keyof T & string;
     icon?: keyof typeof Ionicons.glyphMap;
 }
@@ -145,4 +145,5 @@ const AuthForm = <T extends Record<string, any>>({
         </Formik>
     )
 }
+
 export default AuthForm;
