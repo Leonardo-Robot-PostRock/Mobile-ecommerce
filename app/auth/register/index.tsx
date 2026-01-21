@@ -1,7 +1,10 @@
 import { REGISTER_INPUTS } from '@/constants/auth';
 import { RegisterFormValues, registerValidationSchema } from '@/core/auth/validations/schemas';
 import AuthForm from '@/presentation/auth/components/AuthForm';
+import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
+import { router } from 'expo-router';
 import { FormikHelpers } from 'formik';
+import { Alert } from 'react-native';
 
 const initialValues: RegisterFormValues = {
     fullName: '',
@@ -10,13 +13,21 @@ const initialValues: RegisterFormValues = {
 };
 
 const RegisterScreen = () => {
+    const { register } = useAuthStore();
+
     const handleSubmit = async (values: RegisterFormValues, formikHelpers: FormikHelpers<RegisterFormValues>) => {
+        const { fullName, email, password } = values;
         try {
 
-            console.log('Register values:', values);
-            
+            const wasSuccessful = await register(email, password, fullName);
+
+            if (wasSuccessful) {
+                router.replace('/');
+                return;
+            }
+
         } catch (error) {
-            formikHelpers.setStatus({ error: (error as Error).message });
+            Alert.alert('Error', 'No se pudo crear la cuenta. Por favor, inténtalo de nuevo.');
         } finally {
             formikHelpers.setSubmitting(false);
         }
