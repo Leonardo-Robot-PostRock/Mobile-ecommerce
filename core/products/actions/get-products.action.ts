@@ -1,4 +1,4 @@
-import productsApi from "@/core/api/productsApi";
+import productsApi, { API_URL } from "@/core/api/productsApi";
 import { Product } from "../interfaces/product.interface";
 
 export const getProducts = async (limit = 20, offset = 0) => {
@@ -10,7 +10,10 @@ export const getProducts = async (limit = 20, offset = 0) => {
             }
         });
 
-        return data;
+        return data.map((product) =>({
+            ...product,
+            images: product.images.map((image) => `${API_URL}/files/products/${image}`)
+        }));
 
     } catch (error) {
         throw new Error('Unable to load products')
