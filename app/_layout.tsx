@@ -6,6 +6,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import TanStackProvider from '@/presentation/plugins/TanStackProvider';
 import { useColorScheme } from '@/presentation/theme/hooks/useColorSchemeWeb';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 
@@ -32,12 +33,15 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor }}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack screenOptions={{
-          headerShown: false
-        }}></Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
+      <TanStackProvider>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack
+            screenOptions={{
+              headerShown: false
+            }}></Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </TanStackProvider>
     </GestureHandlerRootView>
   );
 }
