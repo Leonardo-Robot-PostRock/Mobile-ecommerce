@@ -1,15 +1,31 @@
-import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
-import React from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
+
+import ProductList from '@/presentation/products/components/ProductList';
+import { useProducts } from '@/presentation/products/hooks/useProducts';
+
 
 const HomeScreen = () => {
-    const primary = useThemeColor({}, 'primary')
+    const { productsQuery, loadNextPage } = useProducts();
+
+
+    if (productsQuery.isLoading) {
+
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size={30} />
+            </View>
+        )
+    }
 
     return (
-        <View style={{  paddingHorizontal: 10 }}>
-            
+        <View style={{ paddingHorizontal: 10 }}>
+            <ProductList
+                products={productsQuery.data?.pages.flatMap(page => page) ?? []}
+                loadNextPage={loadNextPage}
+            />
         </View>
     )
+
 }
 
 export default HomeScreen
