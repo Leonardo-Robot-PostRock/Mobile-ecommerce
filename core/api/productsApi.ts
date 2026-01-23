@@ -1,8 +1,8 @@
 import { SecureStorageAdapter } from '@/helpers/adapter/secure-storage.adapter';
 import axios from 'axios';
 import { Platform } from 'react-native';
-import { AuthResponse } from '../actions/auth-actions';
-import { User } from '../interface/user';
+import { AuthResponse } from '../auth/actions/auth-actions';
+import { User } from '../auth/interface/user';
 
 // TODO: conectar mediante envs vars, Android e IOS
 const STAGE = process.env.EXPO_PUBLIC_STAGE || 'dev';
