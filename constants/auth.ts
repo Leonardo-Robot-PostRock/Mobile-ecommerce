@@ -1,6 +1,5 @@
-import { InputField } from '@/presentation/auth/components/AuthForm';
 
-export const LOGIN_INPUTS: InputField[] = [
+export const LOGIN_INPUTS = [
     {
         name: 'email',
         placeholder: 'Correo electrónico',
@@ -17,7 +16,7 @@ export const LOGIN_INPUTS: InputField[] = [
     },
 ];
 
-export const REGISTER_INPUTS: InputField[] = [
+export const REGISTER_INPUTS = [
     {
         name: 'fullName',
         placeholder: 'Nombre completo',
