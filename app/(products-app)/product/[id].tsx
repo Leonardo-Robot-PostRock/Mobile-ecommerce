@@ -1,20 +1,48 @@
+import { Ionicons } from '@expo/vector-icons';
+import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
+import { useEffect } from 'react';
+import { ActivityIndicator, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+
+import { useProduct } from '@/presentation/products/hooks/useProduct';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { ThemedView } from '@/presentation/theme/components/ThemedView';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
-import { useEffect } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const ProductScreen = () => {
 
+  const { id } = useLocalSearchParams()
+
   const navigation = useNavigation();
+
+  const { productQuery } = useProduct(`${id}`);
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Ionicons name="camera-outline" size={25} />
+      headerRight: () => <Ionicons name="camera-outline" size={25} />,
     })
   }, [])
+
+  useEffect(() => {
+    if (productQuery.data) {
+      navigation.setOptions({
+        title: productQuery.data.title.slice(0, 16) + (productQuery.data.title.length > 14 ? '...' : ''),
+      })
+    }
+  }, [productQuery.data])
+
+  if (productQuery.isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={30} />
+      </View>
+    )
+  }
+
+  if (!productQuery.data) {
+    return <Redirect href='/(products-app)/(home)' />
+  }
+
+  const product = productQuery.data!;
 
   return (
     <KeyboardAvoidingView
