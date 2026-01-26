@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Product } from '@/core/products/interfaces/product.interface';
+import { useQueryClient } from '@tanstack/react-query';
 import { RefreshControl } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ProductCard } from './ProductCard';
@@ -14,10 +15,14 @@ const ProductList = ({ products, loadNextPage }: Props) => {
 
     const [isRefreshing, setIsRefreshing] = useState(false)
 
+    const queryClient = useQueryClient();
+
     const onPullToRefresh = async () => {
         setIsRefreshing(true);
 
         await new Promise(resolve => setTimeout(resolve, 200));
+        
+        queryClient.invalidateQueries({ queryKey: ['products', 'infinite'] });
 
         setIsRefreshing(false);
     }
