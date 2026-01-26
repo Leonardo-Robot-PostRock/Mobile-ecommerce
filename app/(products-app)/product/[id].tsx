@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import ProductImages from '@/presentation/products/components/ProductImages';
 import { useProduct } from '@/presentation/products/hooks/useProduct';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { ThemedView } from '@/presentation/theme/components/ThemedView';
@@ -49,6 +50,11 @@ const ProductScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView>
+
+        <ProductImages
+          images={product.images}
+        />
+
         <ThemedView style={{ marginHorizontal: 10, marginTop: 10 }}>
           <ThemedTextInput placeholder='Título' style={{ marginVertical: 5 }} />
 
