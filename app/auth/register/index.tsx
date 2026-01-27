@@ -1,7 +1,7 @@
 import { REGISTER_INPUTS } from '@/constants/auth';
-import { RegisterFormValues, registerValidationSchema } from '@/core/auth/validations/schemas';
 import AuthForm from '@/presentation/auth/components/AuthForm';
 import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
+import { RegisterFormValues, registerValidationSchema } from '@/presentation/auth/validations/schemas';
 import { router } from 'expo-router';
 import { FormikHelpers } from 'formik';
 import { Alert } from 'react-native';
