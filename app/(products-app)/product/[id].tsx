@@ -6,6 +6,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import ProductImages from '@/presentation/products/components/ProductImages';
 import { useProduct } from '@/presentation/products/hooks/useProduct';
+import ThemedButton from '@/presentation/theme/components/ThemedButton';
+import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { ThemedView } from '@/presentation/theme/components/ThemedView';
 
@@ -88,6 +90,40 @@ const ProductScreen = () => {
             style={{ flex: 1 }}
           />
         </ThemedView>
+
+        <ThemedView
+          style={{
+            marginHorizontal: 10,
+          }}
+        >
+          <ThemedButtonGroup
+            options={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
+            selectedOption={product.sizes}
+            onSelect={(options) => console.log({ options })}
+          />
+
+          <ThemedButtonGroup
+            options={['kid', 'men', 'women', 'unisex']}
+            selectedOption={[product.gender]}
+            onSelect={(options) => console.log({ options })}
+          />
+        </ThemedView>
+
+        <View
+          style={{
+            marginHorizontal: 10,
+            marginBottom: 50,
+            marginTop: 20,
+          }}
+        >
+          <ThemedButton
+            style={{ height: 60 }}
+            icon="save-outline"
+            onPress={() => console.log('Guardar')}
+          >
+            Guardar
+          </ThemedButton>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   )
