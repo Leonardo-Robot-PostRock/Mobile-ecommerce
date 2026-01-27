@@ -2,10 +2,10 @@ import { LinkProps } from 'expo-router';
 
 import { KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from 'react-native';
 
-import { Formik, FormikHelpers, FormikProps } from 'formik';
+import { Formik, type FormikHelpers, type FormikProps } from 'formik';
 import * as yup from 'yup';
 
-import { InputField } from '@/core/auth/interface/auth-form-inputs';
+import { type InputField } from '@/core/auth/interface/auth-form-inputs';
 
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedLink from '@/presentation/theme/components/ThemedLink';
