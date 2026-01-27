@@ -5,7 +5,7 @@ import { KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from 'rea
 import { Formik, FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 
-import { InputField } from '@/core/auth/interface/auth-form';
+import { InputField } from '@/core/auth/interface/auth-form-inputs';
 
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedLink from '@/presentation/theme/components/ThemedLink';
@@ -63,7 +63,7 @@ const AuthForm = <T extends Record<string, any>>({
                         <View style={{ marginTop: 20 }}>
                             {inputs.map((input) => {
                                 const name = input.name;
-                                const hasError = (errors)[name] && (touched)[name];
+                                const hasError = (errors)[name] && (touched)[name] as boolean;
                                 return (
                                     <View key={input.name}>
                                         <ThemedTextInput
@@ -95,20 +95,6 @@ const AuthForm = <T extends Record<string, any>>({
                                 );
                             })}
                         </View>
-
-                        {status?.error && (
-                            <ThemedText
-                                style={{
-                                    color: '#FF6B6B',
-                                    fontSize: 13,
-                                    marginTop: 8,
-                                    marginBottom: 8,
-                                    textAlign: 'center',
-                                }}
-                            >
-                                {status.error}
-                            </ThemedText>
-                        )}
 
                         <View style={{ marginTop: 10 }} />
 
