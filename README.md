@@ -141,6 +141,7 @@ O presiona `w` en la terminal después de ejecutar `bun start`.
 - **React Navigation** - Navegación en la app
 - **TanStack Query** - Manejo del server state
 - **Formik** - Creación de formularios
+- **Yup** - Validación de squemas.
 
 ## 📚 Documentación Adicional
 
