@@ -139,6 +139,8 @@ O presiona `w` en la terminal después de ejecutar `bun start`.
 - **Axios** - Cliente HTTP
 - **Expo Router** - Enrutamiento basado en archivos
 - **React Navigation** - Navegación en la app
+- **TanStack Query** - Manejo del server state
+- **Formik** - Creación de formularios
 
 ## 📚 Documentación Adicional
 
