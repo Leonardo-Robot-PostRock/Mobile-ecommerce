@@ -2,7 +2,7 @@ import { type LinkProps } from 'expo-router';
 
 import { KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from 'react-native';
 
-import { Formik, type FormikHelpers, type FormikProps } from 'formik';
+import { type FormikHelpers, type FormikProps } from 'formik';
 import * as yup from 'yup';
 
 import { type InputField } from '@/core/auth/interface/auth-form-inputs';
@@ -12,6 +12,7 @@ import ThemedLink from '@/presentation/theme/components/ThemedLink';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
+import FormContainer from './FormContainer';
 
 interface Props<T extends Record<string, any>> {
     title: string;
@@ -42,10 +43,10 @@ const AuthForm = <T extends Record<string, any>>({
     const backgroundColor = useThemeColor({}, 'background');
 
     return (
-        <Formik<T>
+        <FormContainer
             initialValues={initialValues}
-            validationSchema={validationSchema}
             onSubmit={onSubmit}
+            validationSchema={validationSchema} 
         >
             {({ handleChange, handleSubmit, values, errors, touched, isSubmitting }: FormikProps<T>) => (
                 <KeyboardAvoidingView
@@ -124,7 +125,7 @@ const AuthForm = <T extends Record<string, any>>({
                     </ScrollView>
                 </KeyboardAvoidingView>
             )}
-        </Formik>
+        </FormContainer>
     )
 }
 
