@@ -62,18 +62,18 @@ const AuthForm = <T extends Record<string, any>>({
 
                         <View style={{ marginTop: 20 }}>
                             {inputs.map((input) => {
-                                const name = input.name as keyof T;
-                                const hasError = Boolean((errors as any)[name] && (touched as any)[name]);
+                                const name = input.name;
+                                const hasError = (errors)[name] && (touched)[name];
                                 return (
-                                    <View key={String(input.name)}>
+                                    <View key={input.name}>
                                         <ThemedTextInput
                                             placeholder={input.placeholder}
                                             keyboardType={input.keyboardType}
                                             secureTextEntry={input.secureTextEntry}
                                             autoCapitalize={input.autoCapitalize}
                                             icon={input.icon}
-                                            value={values[name] as unknown as string}
-                                            onChangeText={handleChange(String(name))}
+                                            value={values[name]}
+                                            onChangeText={handleChange(name)}
                                             editable={!isSubmitting}
                                             style={{ marginBottom: hasError ? 0 : 10 }}
                                         />
@@ -88,7 +88,7 @@ const AuthForm = <T extends Record<string, any>>({
                                                     marginLeft: 4,
                                                 }}
                                             >
-                                                {String((errors as any)[name])}
+                                                {(errors)[name] as string}
                                             </ThemedText>
                                         )}
                                     </View>
@@ -106,7 +106,7 @@ const AuthForm = <T extends Record<string, any>>({
                                     textAlign: 'center',
                                 }}
                             >
-                                {typeof status.error === 'string' ? status.error : String(status.error)}
+                                {status.error}
                             </ThemedText>
                         )}
 
