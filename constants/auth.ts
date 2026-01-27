@@ -1,5 +1,6 @@
+import { InputField } from "@/core/auth/interface/auth-form";
 
-export const LOGIN_INPUTS = [
+export const LOGIN_INPUTS: InputField<{ email: string; password: string }>[] = [
     {
         name: 'email',
         placeholder: 'Correo electrónico',
@@ -16,7 +17,7 @@ export const LOGIN_INPUTS = [
     },
 ];
 
-export const REGISTER_INPUTS = [
+export const REGISTER_INPUTS: InputField<{ fullName: string; email: string; password: string }>[] = [
     {
         name: 'fullName',
         placeholder: 'Nombre completo',
