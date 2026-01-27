@@ -1,9 +1,9 @@
 import { FormikHelpers } from 'formik';
 
 import { LOGIN_INPUTS } from '@/constants/auth';
-import { LoginFormValues, loginValidationSchema } from '@/core/auth/validations/schemas';
 import AuthForm from '@/presentation/auth/components/AuthForm';
 import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
+import { LoginFormValues, loginValidationSchema } from '@/presentation/auth/validations/schemas';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
