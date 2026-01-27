@@ -12,7 +12,7 @@ import ThemedLink from '@/presentation/theme/components/ThemedLink';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
-import FormContainer from './FormContainer';
+import FormContainer from '../../../shared/components/FormContainer';
 
 interface Props<T extends Record<string, any>> {
     title: string;
