@@ -3,12 +3,12 @@ import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Product, Size } from '@/core/products/interfaces/product.interface';
-import FormContainer from '@/presentation/auth/components/FormContainer';
 import ProductImages from '@/presentation/products/components/ProductImages';
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { ThemedView } from '@/presentation/theme/components/ThemedView';
+import FormContainer from '@/shared/components/FormContainer';
 
 interface ProductFormProps {
     initialValues: Product;
