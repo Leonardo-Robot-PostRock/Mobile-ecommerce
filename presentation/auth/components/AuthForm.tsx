@@ -1,21 +1,17 @@
-import { Ionicons } from '@expo/vector-icons';
 import { LinkProps } from 'expo-router';
 
-import { KeyboardAvoidingView, ScrollView, TextInputProps, useWindowDimensions, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from 'react-native';
 
 import { Formik, FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
+
+import { InputField } from '@/core/auth/interface/auth-form';
 
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedLink from '@/presentation/theme/components/ThemedLink';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
-
-interface InputField<T> extends TextInputProps {
-    name: keyof T & string;
-    icon?: keyof typeof Ionicons.glyphMap;
-}
 
 interface Props<T extends Record<string, any>> {
     title: string;
@@ -26,7 +22,7 @@ interface Props<T extends Record<string, any>> {
     linkLabel: string;
     linkHref: string;
     initialValues: T;
-    validationSchema?: yup.ObjectSchema<any> | yup.Schema<any>;
+    validationSchema?: yup.ObjectSchema<T>;
     onSubmit: (values: T, formikHelpers: FormikHelpers<T>) => void | Promise<void>;
 }
 
