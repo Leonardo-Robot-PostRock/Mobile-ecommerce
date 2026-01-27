@@ -1,4 +1,4 @@
-import { InputField } from "@/core/auth/interface/auth-form";
+import { InputField } from "@/core/auth/interface/auth-form-inputs";
 
 export const LOGIN_INPUTS: InputField<{ email: string; password: string }>[] = [
     {
