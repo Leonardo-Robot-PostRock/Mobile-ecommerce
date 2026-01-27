@@ -1,17 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
-import { ActivityIndicator, KeyboardAvoidingView, Platform, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ActivityIndicator, View } from 'react-native';
 
-import { Size } from '@/core/products/interfaces/product.interface';
-import ProductImages from '@/presentation/products/components/ProductImages';
+import { Product } from '@/core/products/interfaces/product.interface';
+import ProductForm from '@/presentation/products/components/ProductForm';
 import { useProduct } from '@/presentation/products/hooks/useProduct';
-import ThemedButton from '@/presentation/theme/components/ThemedButton';
-import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup';
-import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
-import { ThemedView } from '@/presentation/theme/components/ThemedView';
-import { Formik } from 'formik';
 
 const ProductScreen = () => {
 
@@ -19,7 +13,7 @@ const ProductScreen = () => {
 
   const navigation = useNavigation();
 
-  const { productQuery } = useProduct(`${id}`);
+  const { productQuery, productMutation } = useProduct(`${id}`);
 
   useEffect(() => {
     navigation.setOptions({
@@ -49,119 +43,17 @@ const ProductScreen = () => {
 
   const product = productQuery.data!;
 
-  const toggleInArray = <T,>(array: T[], item: T): T[] =>
-    array.includes(item)
-      ? array.filter(i => i !== item)
-      : [...array, item];
-
+  const handleSumbit = (values: Product) => {
+    productMutation.mutate(values);
+  }
 
   return (
-    <Formik
+    <ProductForm
       initialValues={product}
-      onSubmit={(productLike) => console.log(productLike)}
-    >
-      {({ handleChange, setFieldValue, handleSubmit, values }) => (
-
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        >
-          <ScrollView>
-
-            <ProductImages
-              images={values.images}
-            />
-
-            <ThemedView style={{ marginHorizontal: 10, marginTop: 10 }}>
-              <ThemedTextInput
-                placeholder='Título'
-                style={{ marginVertical: 5 }}
-                value={values.title}
-                onChangeText={handleChange('title')}
-              />
-
-              <ThemedTextInput
-                placeholder='Slug'
-                style={{ marginVertical: 5 }}
-                value={values.slug}
-                onChangeText={handleChange('slug')}
-              />
-
-              <ThemedTextInput
-                placeholder='Descripción'
-                multiline
-                numberOfLines={4}
-                style={{ marginVertical: 5 }}
-                value={values.description}
-                onChangeText={handleChange('description')}
-              />
-            </ThemedView>
-
-            <ThemedView
-              style={{
-                marginHorizontal: 10,
-                marginVertical: 5,
-                flexDirection: 'row',
-                gap: 10
-              }}
-            >
-              <ThemedTextInput
-                placeholder='Precio'
-                keyboardType='numeric'
-                style={{ flex: 1 }}
-                value={values.price.toString()}
-                onChangeText={handleChange('price')}
-              />
-
-              <ThemedTextInput
-                placeholder='Stock'
-                keyboardType='numeric'
-                style={{ flex: 1 }}
-                value={values.stock.toString()}
-                onChangeText={handleChange('stock')}
-              />
-            </ThemedView>
-
-            <ThemedView
-              style={{
-                marginHorizontal: 10,
-              }}
-            >
-              <ThemedButtonGroup
-                options={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
-                selectedOption={values.sizes}
-                onSelect={(SelectedOption) => {
-                  const newSizes = toggleInArray<Size>(values.sizes, SelectedOption as Size);
-                  setFieldValue('sizes', newSizes);
-                }}
-              />
-
-              <ThemedButtonGroup
-                options={['kid', 'men', 'women', 'unisex']}
-                selectedOption={[values.gender]}
-                onSelect={(selectedOption) => setFieldValue('gender', selectedOption)}
-              />
-            </ThemedView>
-
-            <View
-              style={{
-                marginHorizontal: 10,
-                marginBottom: 50,
-                marginTop: 20,
-              }}
-            >
-              <ThemedButton
-                style={{ height: 60 }}
-                icon="save-outline"
-                onPress={() => console.log('Guardar')}
-              >
-                Guardar
-              </ThemedButton>
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      )}
-    </Formik>
+      onSubmit={handleSumbit}
+      isPending={productMutation.isPending}
+    />
   )
 }
 
-export default ProductScreen
+export default ProductScreen;
