@@ -10,7 +10,7 @@ import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { ThemedView } from '@/presentation/theme/components/ThemedView';
 import FormContainer from '@/shared/components/FormContainer';
 
-interface ProductFormProps {
+interface Props {
     initialValues: Product;
     onSubmit: (values: Product, formikHelpers: FormikHelpers<Product>) => void;
     isPending?: boolean;
@@ -22,7 +22,7 @@ const ProductForm = ({
     onSubmit,
     isPending = false,
     buttonLabel = 'Guardar'
-}: ProductFormProps) => {
+}: Props) => {
 
     const toggleInArray = <T,>(array: T[], item: T): T[] =>
         array.includes(item)
