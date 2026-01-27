@@ -1,7 +1,7 @@
 import { SecureStorageAdapter } from '@/helpers/adapter/secure-storage.adapter';
 import axios from 'axios';
 import { Platform } from 'react-native';
-import { AuthResponse } from '../auth/actions/auth-actions';
+import { AuthResponse } from '../auth/interface/auth-actions';
 import { User } from '../auth/interface/user';
 
 // TODO: conectar mediante envs vars, Android e IOS
