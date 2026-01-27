@@ -47,7 +47,7 @@ const AuthForm = <T extends Record<string, any>>({
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {({ handleChange, handleSubmit, values, errors, touched, isSubmitting, status }: FormikProps<T>) => (
+            {({ handleChange, handleSubmit, values, errors, touched, isSubmitting }: FormikProps<T>) => (
                 <KeyboardAvoidingView
                     behavior='padding'
                     style={{ flex: 1 }}
