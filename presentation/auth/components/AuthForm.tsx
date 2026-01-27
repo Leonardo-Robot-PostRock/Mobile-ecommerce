@@ -1,4 +1,4 @@
-import { LinkProps } from 'expo-router';
+import { type LinkProps } from 'expo-router';
 
 import { KeyboardAvoidingView, ScrollView, useWindowDimensions, View } from 'react-native';
 
