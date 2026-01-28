@@ -66,21 +66,16 @@ const ProductForm = ({
                         </ThemedView>
 
                         <ThemedView style={ROW_STYLE}>
-                            <ThemedTextInput
-                                placeholder='Precio'
-                                keyboardType='numeric'
-                                style={{ flex: 1 }}
-                                value={values.price.toString()}
-                                onChangeText={handleChange('price')}
-                            />
-
-                            <ThemedTextInput
-                                placeholder='Stock'
-                                keyboardType='numeric'
-                                style={{ flex: 1 }}
-                                value={values.stock.toString()}
-                                onChangeText={handleChange('stock')}
-                            />
+                            {TEXT_INPUTS.slice(3).map((cfg) => (
+                                <ThemedTextInput
+                                    key={cfg.name}
+                                    placeholder={cfg.placeholder}
+                                    keyboardType={cfg.keyboardType}
+                                    style={{ flex: 1 }}
+                                    value={(values as any)[cfg.name]?.toString() ?? ''}
+                                    onChangeText={handleChange(cfg.name)}
+                                />
+                            ))}
                         </ThemedView>
 
                         <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN }}>
