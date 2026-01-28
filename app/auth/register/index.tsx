@@ -1,5 +1,5 @@
-import { REGISTER_INPUTS } from '@/constants/auth';
 import AuthForm from '@/presentation/auth/components/AuthForm';
+import { REGISTER_INPUTS } from '@/presentation/auth/constants/auth';
 import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
 import { RegisterFormValues, registerValidationSchema } from '@/presentation/auth/validations/schemas';
 import { router } from 'expo-router';
