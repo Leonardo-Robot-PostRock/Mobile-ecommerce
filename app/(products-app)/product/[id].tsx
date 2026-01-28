@@ -24,7 +24,7 @@ const ProductScreen = () => {
   useEffect(() => {
     if (productQuery.data) {
       navigation.setOptions({
-        title: productQuery.data.title.slice(0, 16) + (productQuery.data.title.length > 14 ? '...' : ''),
+        title: productQuery.data.title.slice(0, 14) + (productQuery.data.title.length > 14 ? '...' : ''),
       })
     }
   }, [productQuery.data])
