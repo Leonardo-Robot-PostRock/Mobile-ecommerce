@@ -1,7 +1,7 @@
 import { FormikHelpers } from 'formik';
 
-import { LOGIN_INPUTS } from '@/constants/auth';
 import AuthForm from '@/presentation/auth/components/AuthForm';
+import { LOGIN_INPUTS } from '@/presentation/auth/constants/auth';
 import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
 import { LoginFormValues, loginValidationSchema } from '@/presentation/auth/validations/schemas';
 import { router } from 'expo-router';
