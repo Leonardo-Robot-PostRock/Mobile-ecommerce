@@ -14,7 +14,7 @@ import {
     ROW_STYLE,
     SIZE_OPTIONS,
     TEXT_INPUTS,
-} from '@/presentation/products/constants/productForm.constants';
+} from '@/presentation/products/constants/product-form';
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
