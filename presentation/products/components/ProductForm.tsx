@@ -24,6 +24,16 @@ const ProductForm = ({
     buttonLabel = 'Guardar'
 }: Props) => {
 
+    const SIZE_OPTIONS = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'] as const;
+    const GENDER_OPTIONS = ['kid', 'men', 'women', 'unisex'] as const;
+
+    const DEFAULT_MARGIN = 10;
+    const INPUT_MARGIN_STYLE = { marginVertical: 5 } as const;
+    const ROW_STYLE = { marginHorizontal: DEFAULT_MARGIN, marginVertical: 5, flexDirection: 'row', gap: 10 } as const;
+    const CONTAINER_BOTTOM_STYLE = { marginHorizontal: DEFAULT_MARGIN, marginBottom: 50, marginTop: 20 } as const;
+    const BUTTON_STYLE = { height: 60 } as const;
+    const KEYBOARD_BEHAVIOR = Platform.OS === 'ios' ? 'padding' : undefined;
+
     const toggleInArray = <T,>(array: T[], item: T): T[] =>
         array.includes(item)
             ? array.filter(i => i !== item)
@@ -35,23 +45,21 @@ const ProductForm = ({
             onSubmit={onSubmit}
         >
             {({ handleChange, setFieldValue, handleSubmit, values }) => (
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                >
+                <KeyboardAvoidingView behavior={KEYBOARD_BEHAVIOR}>
                     <ScrollView>
                         <ProductImages images={values.images} />
 
-                        <ThemedView style={{ marginHorizontal: 10, marginTop: 10 }}>
+                        <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN, marginTop: 10 }}>
                             <ThemedTextInput
                                 placeholder='Título'
-                                style={{ marginVertical: 5 }}
+                                style={INPUT_MARGIN_STYLE}
                                 value={values.title}
                                 onChangeText={handleChange('title')}
                             />
 
                             <ThemedTextInput
                                 placeholder='Slug'
-                                style={{ marginVertical: 5 }}
+                                style={INPUT_MARGIN_STYLE}
                                 value={values.slug}
                                 onChangeText={handleChange('slug')}
                             />
@@ -60,20 +68,13 @@ const ProductForm = ({
                                 placeholder='Descripción'
                                 multiline
                                 numberOfLines={4}
-                                style={{ marginVertical: 5 }}
+                                style={INPUT_MARGIN_STYLE}
                                 value={values.description}
                                 onChangeText={handleChange('description')}
                             />
                         </ThemedView>
 
-                        <ThemedView
-                            style={{
-                                marginHorizontal: 10,
-                                marginVertical: 5,
-                                flexDirection: 'row',
-                                gap: 10
-                            }}
-                        >
+                        <ThemedView style={ROW_STYLE}>
                             <ThemedTextInput
                                 placeholder='Precio'
                                 keyboardType='numeric'
@@ -91,9 +92,9 @@ const ProductForm = ({
                             />
                         </ThemedView>
 
-                        <ThemedView style={{ marginHorizontal: 10 }}>
+                        <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN }}>
                             <ThemedButtonGroup
-                                options={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
+                                options={SIZE_OPTIONS as unknown as string[]}
                                 selectedOption={values.sizes}
                                 onSelect={(SelectedOption) => {
                                     const newSizes = toggleInArray<Size>(values.sizes, SelectedOption as Size);
@@ -102,25 +103,14 @@ const ProductForm = ({
                             />
 
                             <ThemedButtonGroup
-                                options={['kid', 'men', 'women', 'unisex']}
+                                options={GENDER_OPTIONS as unknown as string[]}
                                 selectedOption={[values.gender]}
                                 onSelect={(selectedOption) => setFieldValue('gender', selectedOption)}
                             />
                         </ThemedView>
 
-                        <View
-                            style={{
-                                marginHorizontal: 10,
-                                marginBottom: 50,
-                                marginTop: 20,
-                            }}
-                        >
-                            <ThemedButton
-                                style={{ height: 60 }}
-                                icon="pencil-outline"
-                                onPress={() => handleSubmit()}
-                                disabled={isPending}
-                            >
+                        <View style={CONTAINER_BOTTOM_STYLE}>
+                            <ThemedButton style={BUTTON_STYLE} icon="pencil-outline" onPress={() => handleSubmit()} disabled={isPending}>
                                 {buttonLabel}
                             </ThemedButton>
                         </View>
