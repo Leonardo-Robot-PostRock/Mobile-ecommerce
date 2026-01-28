@@ -1,9 +1,20 @@
 import { FormikHelpers } from 'formik';
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { KeyboardAvoidingView, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Product, Size } from '@/core/products/interfaces/product.interface';
 import ProductImages from '@/presentation/products/components/ProductImages';
+import {
+    BUTTON_STYLE,
+    CONTAINER_BOTTOM_STYLE,
+    DEFAULT_MARGIN,
+    GENDER_OPTIONS,
+    INPUT_MARGIN_STYLE,
+    KEYBOARD_BEHAVIOR,
+    ROW_STYLE,
+    SIZE_OPTIONS,
+    TEXT_INPUTS,
+} from '@/presentation/products/constants/productForm.constants';
 import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup';
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
@@ -24,15 +35,6 @@ const ProductForm = ({
     buttonLabel = 'Guardar'
 }: Props) => {
 
-    const SIZE_OPTIONS = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'] as const;
-    const GENDER_OPTIONS = ['kid', 'men', 'women', 'unisex'] as const;
-
-    const DEFAULT_MARGIN = 10;
-    const INPUT_MARGIN_STYLE = { marginVertical: 5 } as const;
-    const ROW_STYLE = { marginHorizontal: DEFAULT_MARGIN, marginVertical: 5, flexDirection: 'row', gap: 10 } as const;
-    const CONTAINER_BOTTOM_STYLE = { marginHorizontal: DEFAULT_MARGIN, marginBottom: 50, marginTop: 20 } as const;
-    const BUTTON_STYLE = { height: 60 } as const;
-    const KEYBOARD_BEHAVIOR = Platform.OS === 'ios' ? 'padding' : undefined;
 
     const toggleInArray = <T,>(array: T[], item: T): T[] =>
         array.includes(item)
@@ -50,28 +52,17 @@ const ProductForm = ({
                         <ProductImages images={values.images} />
 
                         <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN, marginTop: 10 }}>
-                            <ThemedTextInput
-                                placeholder='Título'
-                                style={INPUT_MARGIN_STYLE}
-                                value={values.title}
-                                onChangeText={handleChange('title')}
-                            />
-
-                            <ThemedTextInput
-                                placeholder='Slug'
-                                style={INPUT_MARGIN_STYLE}
-                                value={values.slug}
-                                onChangeText={handleChange('slug')}
-                            />
-
-                            <ThemedTextInput
-                                placeholder='Descripción'
-                                multiline
-                                numberOfLines={4}
-                                style={INPUT_MARGIN_STYLE}
-                                value={values.description}
-                                onChangeText={handleChange('description')}
-                            />
+                            {TEXT_INPUTS.slice(0, 3).map((cfg) => (
+                                <ThemedTextInput
+                                    key={cfg.name}
+                                    placeholder={cfg.placeholder}
+                                    style={INPUT_MARGIN_STYLE}
+                                    multiline={cfg.multiline}
+                                    numberOfLines={cfg.numberOfLines}
+                                    value={(values as any)[cfg.name] ?? ''}
+                                    onChangeText={handleChange(cfg.name)}
+                                />
+                            ))}
                         </ThemedView>
 
                         <ThemedView style={ROW_STYLE}>
