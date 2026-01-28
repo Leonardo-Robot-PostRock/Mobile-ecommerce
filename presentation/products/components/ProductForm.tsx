@@ -52,28 +52,28 @@ const ProductForm = ({
                         <ProductImages images={values.images} />
 
                         <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN, marginTop: 10 }}>
-                            {TEXT_INPUTS.slice(0, 3).map((cfg) => (
+                            {TEXT_INPUTS.slice(0, 3).map((inputCfg) => (
                                 <ThemedTextInput
-                                    key={cfg.name}
-                                    placeholder={cfg.placeholder}
+                                    key={inputCfg.name}
+                                    placeholder={inputCfg.placeholder}
                                     style={INPUT_MARGIN_STYLE}
-                                    multiline={cfg.multiline}
-                                    numberOfLines={cfg.numberOfLines}
-                                    value={(values as any)[cfg.name] ?? ''}
-                                    onChangeText={handleChange(cfg.name)}
+                                    multiline={inputCfg.multiline}
+                                    numberOfLines={inputCfg.numberOfLines}
+                                    value={(values as any)[inputCfg.name] ?? ''}
+                                    onChangeText={handleChange(inputCfg.name)}
                                 />
                             ))}
                         </ThemedView>
 
                         <ThemedView style={ROW_STYLE}>
-                            {TEXT_INPUTS.slice(3).map((cfg) => (
+                            {TEXT_INPUTS.slice(3).map((inputCfg) => (
                                 <ThemedTextInput
-                                    key={cfg.name}
-                                    placeholder={cfg.placeholder}
-                                    keyboardType={cfg.keyboardType}
+                                    key={inputCfg.name}
+                                    placeholder={inputCfg.placeholder}
+                                    keyboardType={inputCfg.keyboardType}
                                     style={{ flex: 1 }}
-                                    value={(values as any)[cfg.name]?.toString() ?? ''}
-                                    onChangeText={handleChange(cfg.name)}
+                                    value={(values as any)[inputCfg.name]?.toString() ?? ''}
+                                    onChangeText={handleChange(inputCfg.name)}
                                 />
                             ))}
                         </ThemedView>
