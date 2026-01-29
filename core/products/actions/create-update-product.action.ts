@@ -1,19 +1,21 @@
 
 
-import productsApi from '@/core/api/productsApi'
-import { Product } from '../interfaces/product.interface'
+import productsApi from '@/core/api/productsApi';
+import { Product } from '../interfaces/product.interface';
 
 export const createUpdateProduct = (product: Partial<Product>) => {
 
-    product.stock = isNaN(Number(product.stock)) ? 0 : Number(product.stock)
-    product.price = isNaN(Number(product.price)) ? 0 : Number(product.price)
+    const payload: Partial<Product> = { ...product };
+
+    payload.stock = isNaN(Number(payload.stock)) ? 0 : Number(payload.stock)
+    payload.price = isNaN(Number(payload.price)) ? 0 : Number(payload.price)
 
 
-    if (product.id && product.id !== 'new') {
-        return updateProduct(product)
+    if (payload.id && payload.id !== 'new') {
+        return updateProduct(payload)
     }
 
-    return createProduct(product)
+    return createProduct(payload)
 }
 
 const updateProduct = async (product: Partial<Product>) => {

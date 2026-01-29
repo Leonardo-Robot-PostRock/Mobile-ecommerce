@@ -43,15 +43,16 @@ const ProductScreen = () => {
 
   const product = productQuery.data!;
 
-  const handleSumbit = (values: Product) => {
+  const handleSubmit = (values: Product) => {
     productMutation.mutate(values);
   }
 
   return (
     <ProductForm
       initialValues={product}
-      onSubmit={handleSumbit}
+      onSubmit={handleSubmit}
       isPending={productMutation.isPending}
+      buttonLabel="Actualizar producto"
     />
   )
 }
