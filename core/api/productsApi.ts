@@ -1,6 +1,7 @@
-import { SecureStorageAdapter } from '@/helpers/adapter/secure-storage.adapter';
 import axios from 'axios';
 import { Platform } from 'react-native';
+
+import { SecureStorageAdapter } from '@/helpers/adapter/secure-storage.adapter';
 import { AuthResponse } from '../auth/interface/auth-actions';
 import { User } from '../auth/interface/user';
 
