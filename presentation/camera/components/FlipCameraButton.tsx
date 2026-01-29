@@ -1,6 +1,6 @@
-import buttonStyles from '@/presentation/camera/styles/buttonStyles';
+import CameraButton from '@/presentation/camera/components/CameraButton';
 import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];
@@ -8,10 +8,10 @@ interface Props {
 
 const FlipCameraButton = ({ onPress }: Props) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[buttonStyles.baseSmall, buttonStyles.darkButton, { position: 'absolute', bottom: 40, right: 32 }]}>            
+        <CameraButton onPress={onPress} size="small" variant="dark" position={{ bottom: 40, right: 32 }}>
             <Ionicons name="camera-reverse-outline" size={30} color="white" />
-        </TouchableOpacity>
-    )
+        </CameraButton>
+    );
 }
 
 export default FlipCameraButton;
