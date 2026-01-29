@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
+import buttonStyles from '@/presentation/camera/styles/buttonStyles';
+import { TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];
@@ -12,7 +13,8 @@ const ShutterButton = ({ onPress }: Props) => {
         <TouchableOpacity onPress={onPress}
 
             style={[
-                styles.shutterButton,
+                buttonStyles.baseLarge,
+                buttonStyles.transparentBorder,
                 {
                     position: 'absolute',
                     bottom: 30,
@@ -26,16 +28,3 @@ const ShutterButton = ({ onPress }: Props) => {
 }
 
 export default ShutterButton;
-
-const styles = StyleSheet.create({
-
-    shutterButton: {
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        backgroundColor: 'transparent',
-        borderWidth: 4,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});

@@ -1,6 +1,7 @@
+import buttonStyles from '@/presentation/camera/styles/buttonStyles';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];
@@ -8,24 +9,10 @@ interface Props {
 
 const GaleryButton = ({ onPress }: Props) => {
     return (
-        <TouchableOpacity onPress={onPress} style={styles.galleryButton}>
+        <TouchableOpacity onPress={onPress} style={[buttonStyles.baseSmall, buttonStyles.darkButton, { position: 'absolute', bottom: 40, left: 32 }]}>            
             <Ionicons name="images-outline" size={30} color="white" />
         </TouchableOpacity>
     )
 }
 
 export default GaleryButton;
-
-const styles = StyleSheet.create({
-    galleryButton: {
-        width: 50,
-        height: 50,
-        borderRadius: 32,
-        backgroundColor: '#17202A',
-        position: 'absolute',
-        bottom: 40,
-        left: 32,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-})

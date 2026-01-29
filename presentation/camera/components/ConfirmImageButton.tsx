@@ -1,6 +1,7 @@
+import buttonStyles from '@/presentation/camera/styles/buttonStyles';
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
+import { TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];
@@ -15,7 +16,8 @@ const ConfirmImageButton = ({ onPress }: Props) => {
         <TouchableOpacity onPress={onPress}
 
             style={[
-                styles.confirmImageButton,
+                buttonStyles.baseLarge,
+                buttonStyles.transparentBorder,
                 {
                     position: 'absolute',
                     bottom: 30,
@@ -30,16 +32,3 @@ const ConfirmImageButton = ({ onPress }: Props) => {
 }
 
 export default ConfirmImageButton;
-
-const styles = StyleSheet.create({
-
-    confirmImageButton: {
-        width: 64,
-        height: 64,
-        borderRadius: 32,
-        backgroundColor: 'transparent',
-        borderWidth: 4,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
