@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 interface Props {
-    onPress: () => void;
+    onPress: TouchableOpacityProps['onPress'];
 }
 
 const FlipCameraButton = ({ onPress }: Props) => {
