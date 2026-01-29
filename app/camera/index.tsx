@@ -1,13 +1,14 @@
-import { FlipCameraButton, GaleryButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
+import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const CameraScreen = () => {
     const [facing, setFacing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const cameraRef = useRef<CameraView>(null);
 
@@ -47,7 +48,7 @@ const CameraScreen = () => {
 
         if (!picture.uri) return;
 
-
+        setSelectedImage(picture.uri);
     }
 
 
@@ -59,9 +60,27 @@ const CameraScreen = () => {
         router.dismiss();
     }
 
+    const onPictureAccepted = () => {
+
+    }
+
+    if (selectedImage) {
+
+        return (
+            <View style={styles.container}>
+                <Image source={{ uri: selectedImage }} style={styles.camera} />
+                <ConfirmImageButton onPress={onPictureAccepted} />
+                <RetakeImageButton />
+                <ReturnCancelButton onPress={onReturnCancel} />
+            </View>
+        )
+
+
+    }
+
     return (
         <View style={styles.container}>
-            <CameraView style={styles.camera} facing={facing} />
+            <CameraView style={styles.camera} facing={facing} ref={cameraRef} />
             <ShutterButton onPress={onShutterButtonPress} />
             <FlipCameraButton onPress={toggleCameraFacing} />
             <GaleryButton onPress={() => { }} />
