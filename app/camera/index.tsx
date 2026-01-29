@@ -1,11 +1,14 @@
+import ShutterButton from '@/presentation/camera/components/ShutterButton';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const CameraScreen = () => {
     const [facing, setFacing] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
+
+    const cameraRef = useRef<CameraView>(null);
 
     if (!permission) {
         // Camera permissions are still loading.
@@ -34,6 +37,19 @@ const CameraScreen = () => {
         );
     }
 
+    const onShutterButtonPress = async () => {
+        if (!cameraRef.current) return;
+
+        const picture = await cameraRef.current.takePictureAsync({
+            quality: 0.7
+        });
+
+        if (!picture.uri) return;
+
+
+    }
+
+
     function toggleCameraFacing() {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
@@ -41,11 +57,8 @@ const CameraScreen = () => {
     return (
         <View style={styles.container}>
             <CameraView style={styles.camera} facing={facing} />
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-                    <Text style={styles.text}>Flip Camera</Text>
-                </TouchableOpacity>
-            </View>
+            <ShutterButton onPress={onShutterButtonPress}/>
+           
         </View>
     );
 }
@@ -63,15 +76,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     buttonContainer: {
-        position: 'absolute',
-        bottom: 64,
+        flex: 1,
         flexDirection: 'row',
         backgroundColor: 'transparent',
-        width: '100%',
-        paddingHorizontal: 64,
+        margin: 64,
     },
     button: {
         flex: 1,
+        alignSelf: 'flex-end',
         alignItems: 'center',
     },
     text: {
@@ -79,6 +91,41 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
     },
-});
 
+    flipCameraButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 32,
+        backgroundColor: '#17202A',
+        position: 'absolute',
+        bottom: 40,
+        right: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    galleryButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 32,
+        backgroundColor: '#17202A',
+        position: 'absolute',
+        bottom: 40,
+        left: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    returnCancelButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 32,
+        backgroundColor: '#17202A',
+        position: 'absolute',
+        top: 40,
+        left: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
 export default CameraScreen;
