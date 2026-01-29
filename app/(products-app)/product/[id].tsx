@@ -52,7 +52,6 @@ const ProductScreen = () => {
       initialValues={product}
       onSubmit={handleSubmit}
       isPending={productMutation.isPending}
-      buttonLabel="Actualizar producto"
     />
   )
 }
