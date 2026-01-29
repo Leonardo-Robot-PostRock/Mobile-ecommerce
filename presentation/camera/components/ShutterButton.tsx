@@ -1,7 +1,7 @@
-import { StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
 
 interface Props {
-    onPress: () => void;
+    onPress: TouchableOpacityProps['onPress'];
 }
 
 const ShutterButton = ({ onPress }: Props) => {
