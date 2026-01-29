@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from 'expo-router';
 import { FormikHelpers } from 'formik';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -32,9 +33,11 @@ const ProductForm = ({
     initialValues,
     onSubmit,
     isPending = false,
-    buttonLabel = 'Guardar'
 }: Props) => {
 
+    //TODO: Obtain params from expo-router
+    // Inside component, after Props destructuring:
+    const { id } = useLocalSearchParams();
 
     const toggleInArray = <T,>(array: T[], item: T): T[] =>
         array.includes(item)
@@ -97,7 +100,7 @@ const ProductForm = ({
 
                         <View style={CONTAINER_BOTTOM_STYLE}>
                             <ThemedButton style={BUTTON_STYLE} icon="pencil-outline" onPress={() => handleSubmit()} disabled={isPending}>
-                                {buttonLabel}
+                                {id === 'new' ? 'Crear producto' : 'Actualizar producto'}
                             </ThemedButton>
                         </View>
                     </ScrollView>
