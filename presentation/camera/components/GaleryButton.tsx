@@ -1,9 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
 interface Props {
-    onPress: () => void;
+    onPress: TouchableOpacityProps['onPress'];
 }
 
 const GaleryButton = ({ onPress }: Props) => {
