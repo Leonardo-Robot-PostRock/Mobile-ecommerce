@@ -1,6 +1,7 @@
+import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const CameraScreen = () => {
     const [facing, setFacing] = useState<CameraType>('back');
@@ -14,9 +15,21 @@ const CameraScreen = () => {
     if (!permission.granted) {
         // Camera permissions are not granted yet.
         return (
-            <View style={styles.container}>
-                <Text style={styles.message}>We need your permission to show the camera</Text>
-                <Button onPress={requestPermission} title="grant permission" />
+            <View
+                style={{
+                    ...styles.container,
+                    marginHorizontal: 30,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <Text style={styles.message}>Necesitamos permiso para usar la cámara y la galería</Text>
+
+                <TouchableOpacity style={styles.button} onPress={requestPermission}>
+                    <ThemedText type='subtitle'>
+                        Solicitar permiso
+                    </ThemedText>
+                </TouchableOpacity>
             </View>
         );
     }
