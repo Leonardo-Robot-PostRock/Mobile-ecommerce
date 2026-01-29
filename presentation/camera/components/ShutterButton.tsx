@@ -1,5 +1,6 @@
-import CameraButton from '@/presentation/camera/components/CameraButton';
 import { TouchableOpacityProps, useWindowDimensions } from 'react-native';
+
+import CameraButton from './CameraButton';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];

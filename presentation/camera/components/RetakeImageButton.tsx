@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacityProps } from 'react-native';
 
-import CameraButton from '@/presentation/camera/components/CameraButton';
+import CameraButton from './CameraButton';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];
