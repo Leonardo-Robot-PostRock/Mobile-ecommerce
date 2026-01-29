@@ -8,9 +8,9 @@ interface Props {
 
 const ReturnCancelButton = ({ onPress }: Props) => {
     return (
-          <CameraButton onPress={onPress} size="small" variant="dark" position={{ top: 40, left: 32 }}>
+        <CameraButton onPress={onPress} size="small" variant="dark" position={{ top: 40, left: 32 }}>
             <Ionicons name="arrow-back-outline" size={30} color="white" />
-          </CameraButton>
+        </CameraButton>
     )
 }
 
