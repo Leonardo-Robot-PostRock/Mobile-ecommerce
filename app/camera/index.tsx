@@ -64,13 +64,17 @@ const CameraScreen = () => {
 
     }
 
+    const onRetakePhoto = () => {
+        setSelectedImage(null);
+    }
+
     if (selectedImage) {
 
         return (
             <View style={styles.container}>
                 <Image source={{ uri: selectedImage }} style={styles.camera} />
                 <ConfirmImageButton onPress={onPictureAccepted} />
-                <RetakeImageButton />
+                <RetakeImageButton onPress={onRetakePhoto} />
                 <ReturnCancelButton onPress={onReturnCancel} />
             </View>
         )
