@@ -1,5 +1,3 @@
-import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
-import React from 'react';
 import { StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
 
 interface Props {
@@ -9,7 +7,6 @@ interface Props {
 const ShutterButton = ({ onPress }: Props) => {
 
     const dimensions = useWindowDimensions()
-    const primary = useThemeColor({}, 'primary');
 
     return (
         <TouchableOpacity onPress={onPress}
@@ -19,7 +16,7 @@ const ShutterButton = ({ onPress }: Props) => {
                 {
                     position: 'absolute',
                     bottom: 30,
-                    borderColor: primary,
+                    borderColor: 'white',
                     left: (dimensions.width / 2) - 32,
                 }
             ]}
@@ -36,7 +33,7 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64,
         borderRadius: 32,
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         borderWidth: 4,
         justifyContent: 'center',
         alignItems: 'center',
