@@ -1,7 +1,8 @@
-import buttonStyles from '@/presentation/camera/styles/buttonStyles';
-import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
+import { TouchableOpacityProps, useWindowDimensions } from 'react-native';
+
+import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
+import CameraButton from './CameraButton';
 
 interface Props {
     onPress: TouchableOpacityProps['onPress'];
@@ -13,21 +14,9 @@ const ConfirmImageButton = ({ onPress }: Props) => {
     const primary = useThemeColor({}, 'primary');
 
     return (
-        <TouchableOpacity onPress={onPress}
-
-            style={[
-                buttonStyles.baseLarge,
-                buttonStyles.transparentBorder,
-                {
-                    position: 'absolute',
-                    bottom: 30,
-                    borderColor: primary,
-                    left: (dimensions.width / 2) - 32,
-                }
-            ]}
-        >
+        <CameraButton onPress={onPress} size="large" variant="transparent" position={{ bottom: 30, left: (dimensions.width / 2) - 32 }} borderColor={primary}>
             <Ionicons name="checkmark-outline" size={30} color={primary} />
-        </TouchableOpacity>
+        </CameraButton>
     )
 }
 
