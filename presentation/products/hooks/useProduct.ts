@@ -1,3 +1,4 @@
+import { createUpdateProduct } from "@/core/products/actions/create-update-product.action"
 import { getProductById } from "@/core/products/actions/get-product-by-id.action"
 import { Product } from "@/core/products/interfaces/product.interface"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -12,10 +13,7 @@ export const useProduct = (productId: string) => {
 
     //Mutación
     const productMutation = useMutation({
-        mutationFn: async(data: Product) =>{
-            //TODO: disparar acción guardar product
-            return data;
-        },
+        mutationFn: createUpdateProduct,
 
         onSuccess: (data: Product) =>{
             //Invalidar product queries
