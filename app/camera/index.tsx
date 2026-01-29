@@ -1,9 +1,10 @@
-import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
-import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
+import { ThemedText } from '@/presentation/theme/components/ThemedText';
 
 const CameraScreen = () => {
     const [facing, setFacing] = useState<CameraType>('back');
@@ -78,8 +79,6 @@ const CameraScreen = () => {
                 <ReturnCancelButton onPress={onReturnCancel} />
             </View>
         )
-
-
     }
 
     return (

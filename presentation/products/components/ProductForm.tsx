@@ -26,7 +26,6 @@ interface Props {
     initialValues: Product;
     onSubmit: (values: Product, formikHelpers: FormikHelpers<Product>) => void;
     isPending?: boolean;
-    buttonLabel?: string;
 }
 
 const ProductForm = ({
@@ -35,8 +34,6 @@ const ProductForm = ({
     isPending = false,
 }: Props) => {
 
-    //TODO: Obtain params from expo-router
-    // Inside component, after Props destructuring:
     const { id } = useLocalSearchParams();
 
     const toggleInArray = <T,>(array: T[], item: T): T[] =>
