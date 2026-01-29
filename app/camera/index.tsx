@@ -1,6 +1,7 @@
-import ShutterButton from '@/presentation/camera/components/ShutterButton';
+import { FlipCameraButton, GaleryButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
+import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -50,15 +51,21 @@ const CameraScreen = () => {
     }
 
 
-    function toggleCameraFacing() {
+    const toggleCameraFacing = () => {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
+    }
+
+    const onReturnCancel = () => {
+        router.dismiss();
     }
 
     return (
         <View style={styles.container}>
             <CameraView style={styles.camera} facing={facing} />
-            <ShutterButton onPress={onShutterButtonPress}/>
-           
+            <ShutterButton onPress={onShutterButtonPress} />
+            <FlipCameraButton onPress={toggleCameraFacing} />
+            <GaleryButton onPress={() => { }} />
+            <ReturnCancelButton onPress={onReturnCancel} />
         </View>
     );
 }
@@ -90,42 +97,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: 'white',
-    },
-
-    flipCameraButton: {
-        width: 50,
-        height: 50,
-        borderRadius: 32,
-        backgroundColor: '#17202A',
-        position: 'absolute',
-        bottom: 40,
-        right: 32,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    galleryButton: {
-        width: 50,
-        height: 50,
-        borderRadius: 32,
-        backgroundColor: '#17202A',
-        position: 'absolute',
-        bottom: 40,
-        left: 32,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    returnCancelButton: {
-        width: 50,
-        height: 50,
-        borderRadius: 32,
-        backgroundColor: '#17202A',
-        position: 'absolute',
-        top: 40,
-        left: 32,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });
 export default CameraScreen;
