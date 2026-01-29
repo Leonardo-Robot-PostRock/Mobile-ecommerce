@@ -1,11 +1,11 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
+import { Redirect, router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
 import { Product } from '@/core/products/interfaces/product.interface';
 import ProductForm from '@/presentation/products/components/ProductForm';
 import { useProduct } from '@/presentation/products/hooks/useProduct';
+import MenuIconButton from '@/presentation/theme/components/MenuIconButton';
 
 const ProductScreen = () => {
 
@@ -17,7 +17,11 @@ const ProductScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Ionicons name="camera-outline" size={25} />,
+      headerRight: () =>
+        <MenuIconButton
+          onPress={() => router.push('/camera')}
+          icon='camera-outline'
+        />,
     })
   }, [])
 
