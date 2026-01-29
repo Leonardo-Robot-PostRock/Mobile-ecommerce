@@ -1,6 +1,5 @@
 
 import { Formik, FormikHelpers, FormikProps } from 'formik';
-import React from 'react';
 import * as yup from 'yup';
 
 interface Props<T extends Record<string, any>> {
