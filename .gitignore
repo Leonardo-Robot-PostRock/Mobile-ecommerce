@@ -44,3 +44,6 @@ app-example
 
 # envs
 .env
+
+# IDE
+.vscode
