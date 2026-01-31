@@ -1,24 +1,49 @@
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import * as MediaLibrary from 'expo-media-library';
 
 import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 
 const CameraScreen = () => {
     const [facing, setFacing] = useState<CameraType>('back');
-    const [permission, requestPermission] = useCameraPermissions();
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+    const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+    const [mediaPermission, requestMediaPermission] = MediaLibrary.usePermissions();
 
     const cameraRef = useRef<CameraView>(null);
 
-    if (!permission) {
+    const onRequestPermissions = async () => {
+        try {
+            const { status: cameraPermissionStatus } = await requestCameraPermission();
+
+            if (cameraPermissionStatus !== 'granted') {
+                Alert.alert('Lo siento', 'Necesitamos permiso para usar la cámara.');
+                return;
+            }
+
+            const { status: mediaPermissionStatus } = await requestMediaPermission();
+
+            if (mediaPermissionStatus !== 'granted') {
+                Alert.alert('Lo siento', 'Necesitamos permiso para acceder a la galería.');
+                return;
+            }
+        } catch (error) {
+            console.log('Error requesting permissions:', error);
+            Alert.alert('Error', 'Hubo un error al solicitar los permisos.');
+        }
+    }
+
+    if (!cameraPermission) {
         // Camera permissions are still loading.
         return <View />;
     }
 
-    if (!permission.granted) {
+    if (!cameraPermission.granted) {
         // Camera permissions are not granted yet.
         return (
             <View
@@ -31,7 +56,7 @@ const CameraScreen = () => {
             >
                 <Text style={styles.message}>Necesitamos permiso para usar la cámara y la galería</Text>
 
-                <TouchableOpacity style={styles.button} onPress={requestPermission}>
+                <TouchableOpacity style={styles.button} onPress={onRequestPermissions}>
                     <ThemedText type='subtitle'>
                         Solicitar permiso
                     </ThemedText>
