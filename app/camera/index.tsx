@@ -50,14 +50,15 @@ const CameraScreen = () => {
                 style={{
                     ...styles.container,
                     marginHorizontal: 30,
+                    marginBottom: 0,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}
             >
                 <Text style={styles.message}>Necesitamos permiso para usar la cámara y la galería</Text>
 
-                <TouchableOpacity style={styles.button} onPress={onRequestPermissions}>
-                    <ThemedText type='subtitle'>
+                <TouchableOpacity onPress={onRequestPermissions}>
+                    <ThemedText type='subtitle' >
                         Solicitar permiso
                     </ThemedText>
                 </TouchableOpacity>
@@ -86,8 +87,12 @@ const CameraScreen = () => {
         router.dismiss();
     }
 
-    const onPictureAccepted = () => {
+    const onPictureAccepted = async () => {
+        if (!selectedImage) return;
 
+        await MediaLibrary.createAssetAsync(selectedImage);
+
+        router.dismiss();
     }
 
     const onRetakePhoto = () => {
@@ -121,6 +126,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        marginBottom: 30,
     },
     message: {
         textAlign: 'center',
