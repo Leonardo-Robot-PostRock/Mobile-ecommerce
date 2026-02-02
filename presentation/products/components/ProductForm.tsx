@@ -24,12 +24,14 @@ import FormContainer from '@/shared/components/FormContainer';
 
 interface Props {
     initialValues: Product;
+    selectedImages: string[];
     onSubmit: (values: Product, formikHelpers: FormikHelpers<Product>) => void;
     isPending?: boolean;
 }
 
 const ProductForm = ({
     initialValues,
+    selectedImages,
     onSubmit,
     isPending = false,
 }: Props) => {
@@ -49,7 +51,7 @@ const ProductForm = ({
             {({ handleChange, setFieldValue, handleSubmit, values }) => (
                 <KeyboardAvoidingView behavior={KEYBOARD_BEHAVIOR}>
                     <ScrollView>
-                        <ProductImages images={values.images} />
+                        <ProductImages images={[...values.images, ...selectedImages]} />
 
                         <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN, marginTop: 10 }}>
                             {TEXT_INPUTS.slice(0, 3).map((inputCfg) => (
