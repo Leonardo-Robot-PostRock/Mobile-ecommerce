@@ -3,17 +3,27 @@ import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
 import { Product } from '@/core/products/interfaces/product.interface';
+import { useCameraStore } from '@/presentation/camera/store/useCameraStore';
 import ProductForm from '@/presentation/products/components/ProductForm';
 import { useProduct } from '@/presentation/products/hooks/useProduct';
 import MenuIconButton from '@/presentation/theme/components/MenuIconButton';
 
 const ProductScreen = () => {
 
-  const { id } = useLocalSearchParams()
+  const { id } = useLocalSearchParams();
+
+  const { selectedImages, clearImages } = useCameraStore();
 
   const navigation = useNavigation();
 
   const { productQuery, productMutation } = useProduct(`${id}`);
+
+  useEffect(() => {
+
+    return () => {
+      clearImages();
+    }
+  }, [])
 
   useEffect(() => {
     navigation.setOptions({
@@ -54,6 +64,7 @@ const ProductScreen = () => {
   return (
     <ProductForm
       initialValues={product}
+      selectedImages={selectedImages}
       onSubmit={handleSubmit}
       isPending={productMutation.isPending}
     />

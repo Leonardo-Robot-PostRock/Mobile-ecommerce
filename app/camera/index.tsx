@@ -6,6 +6,7 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 import * as MediaLibrary from 'expo-media-library';
 
 import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
+import { useCameraStore } from '@/presentation/camera/store/useCameraStore';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 
 const CameraScreen = () => {
@@ -14,6 +15,8 @@ const CameraScreen = () => {
 
     const [cameraPermission, requestCameraPermission] = useCameraPermissions();
     const [mediaPermission, requestMediaPermission] = MediaLibrary.usePermissions();
+
+    const { addSelectedImage } = useCameraStore();
 
     const cameraRef = useRef<CameraView>(null);
 
@@ -91,6 +94,8 @@ const CameraScreen = () => {
         if (!selectedImage) return;
 
         await MediaLibrary.createAssetAsync(selectedImage);
+
+        addSelectedImage(selectedImage);
 
         router.dismiss();
     }
