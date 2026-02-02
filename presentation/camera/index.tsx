@@ -1,4 +1,4 @@
-export { default as ActiveCameraView } from './components/ActiveCameraView';
-export { default as CameraPermissionsView } from './components/CameraPermissionsView';
-export { default as SelectedImagePreview } from './components/SelectedImagePreview';
+export { default as ActiveCameraView } from './views/ActiveCameraView';
+export { default as CameraPermissionsView } from './views/CameraPermissionsView';
+export { default as SelectedImagePreview } from './views/SelectedImagePreview';
 

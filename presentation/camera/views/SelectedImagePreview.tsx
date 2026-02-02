@@ -1,57 +1,39 @@
 import { Ionicons } from '@expo/vector-icons';
-import { CameraType, CameraView } from 'expo-camera';
-import { useWindowDimensions, View } from 'react-native';
+import { Image, useWindowDimensions, View } from 'react-native';
 
+import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
+import CameraButton from '../components/CameraButton';
 import { cameraScreenStyles } from '../styles/cameraStyles';
-import CameraButton from './buttons/CameraButton';
-
 
 interface Props {
-    cameraRef: React.RefObject<CameraView | null>;
-    facing: CameraType;
-    onShutter: () => Promise<void>;
-    onToggleFacing: () => void;
-    onPickFromGallery: () => Promise<void>;
+    selectedImage: string;
+    onAccept: () => Promise<void>;
+    onRetake: () => void;
     onCancel: () => void;
 }
 
-const ActiveCameraView = ({
-    cameraRef,
-    facing,
-    onShutter,
-    onToggleFacing,
-    onPickFromGallery,
-    onCancel,
-}: Props) => {
+const SelectedImagePreview = ({ selectedImage, onAccept, onRetake, onCancel }: Props) => {
     const dimensions = useWindowDimensions();
+    const primary = useThemeColor({}, 'primary');
 
     const buttons = [
         {
-            key: 'shutter',
-            onPress: onShutter,
+            key: 'confirm',
+            onPress: onAccept,
             size: 'large' as const,
             variant: 'transparent' as const,
             position: { bottom: 30, left: dimensions.width / 2 - 32 },
-            borderColor: 'white',
-            icon: null as React.ReactNode,
+            borderColor: primary,
+            icon: <Ionicons name="checkmark-outline" size={30} color={primary} />,
         },
         {
-            key: 'flip',
-            onPress: onToggleFacing,
+            key: 'retake',
+            onPress: onRetake,
             size: 'small' as const,
             variant: 'dark' as const,
             position: { bottom: 40, right: 32 },
             borderColor: undefined,
-            icon: <Ionicons name="camera-reverse-outline" size={30} color="white" />,
-        },
-        {
-            key: 'gallery',
-            onPress: onPickFromGallery,
-            size: 'small' as const,
-            variant: 'dark' as const,
-            position: { bottom: 40, left: 32 },
-            borderColor: undefined,
-            icon: <Ionicons name="images-outline" size={30} color="white" />,
+            icon: <Ionicons name="close-outline" size={30} color="white" />,
         },
         {
             key: 'cancel',
@@ -66,8 +48,7 @@ const ActiveCameraView = ({
 
     return (
         <View style={cameraScreenStyles.container}>
-            <CameraView style={cameraScreenStyles.camera} facing={facing} ref={cameraRef} />
-
+            <Image source={{ uri: selectedImage }} style={cameraScreenStyles.camera} />
             {buttons.map(({ key, onPress, size, variant, position, borderColor, icon }) => (
                 <CameraButton
                     key={key}
@@ -84,4 +65,4 @@ const ActiveCameraView = ({
     );
 };
 
-export default ActiveCameraView;
+export default SelectedImagePreview;
