@@ -1,15 +1,14 @@
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 
-import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
+import { ActiveCameraView, CameraPermissionsView, SelectedImagePreview } from '@/presentation/camera';
 import { MediaTypes } from '@/presentation/camera/constants/media-types';
 import { useCameraStore } from '@/presentation/camera/store/useCameraStore';
-import { ThemedText } from '@/presentation/theme/components/ThemedText';
 
 const CameraScreen = () => {
     const [facing, setFacing] = useState<CameraType>('back');
@@ -20,7 +19,7 @@ const CameraScreen = () => {
 
     const { addSelectedImage } = useCameraStore();
 
-    const cameraRef = useRef<CameraView>(null);
+    const cameraRef = useRef<CameraView | null>(null);
 
     const onRequestPermissions = async () => {
         try {
@@ -41,59 +40,28 @@ const CameraScreen = () => {
             console.log('Error requesting permissions:', error);
             Alert.alert('Error', 'Hubo un error al solicitar los permisos.');
         }
-    }
-
-    if (!cameraPermission) {
-        // Camera permissions are still loading.
-        return <View />;
-    }
-
-    if (!cameraPermission.granted) {
-        // Camera permissions are not granted yet.
-        return (
-            <View
-                style={{
-                    ...styles.container,
-                    marginHorizontal: 30,
-                    marginBottom: 0,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-            >
-                <Text style={styles.message}>Necesitamos permiso para usar la cámara y la galería</Text>
-
-                <TouchableOpacity onPress={onRequestPermissions}>
-                    <ThemedText type='subtitle' >
-                        Solicitar permiso
-                    </ThemedText>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+    };
 
     const onShutterButtonPress = async () => {
         if (!cameraRef.current) return;
 
         const picture = await cameraRef.current.takePictureAsync({
-            quality: 0.7
+            quality: 0.7,
         });
 
         if (!picture.uri) return;
 
         setSelectedImage(picture.uri);
-    }
-
+    };
 
     const toggleCameraFacing = () => {
-        setFacing(current => (current === 'back' ? 'front' : 'back'));
-    }
+        setFacing((current) => (current === 'back' ? 'front' : 'back'));
+    };
 
     const onPickImages = async () => {
-
-        let result = await ImagePicker.launchImageLibraryAsync({
+        const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: MediaTypes.Images,
-            // allowsEditing: true,
-            aspect: [4, 3], // width, height
+            aspect: [4, 3],
             quality: 1,
             allowsMultipleSelection: true,
             selectionLimit: 5,
@@ -106,11 +74,11 @@ const CameraScreen = () => {
         });
 
         router.dismiss();
-    }
+    };
 
     const onReturnCancel = () => {
         router.dismiss();
-    }
+    };
 
     const onPictureAccepted = async () => {
         if (!selectedImage) return;
@@ -120,64 +88,41 @@ const CameraScreen = () => {
         addSelectedImage(selectedImage);
 
         router.dismiss();
-    }
+    };
 
     const onRetakePhoto = () => {
         setSelectedImage(null);
+    };
+
+    if (!cameraPermission) {
+        return <View />;
+    }
+
+    if (!cameraPermission.granted) {
+        return <CameraPermissionsView onRequestPermissions={onRequestPermissions} />;
     }
 
     if (selectedImage) {
-
         return (
-            <View style={styles.container}>
-                <Image source={{ uri: selectedImage }} style={styles.camera} />
-                <ConfirmImageButton onPress={onPictureAccepted} />
-                <RetakeImageButton onPress={onRetakePhoto} />
-                <ReturnCancelButton onPress={onReturnCancel} />
-            </View>
-        )
+            <SelectedImagePreview
+                selectedImage={selectedImage}
+                onAccept={onPictureAccepted}
+                onRetake={onRetakePhoto}
+                onCancel={onReturnCancel}
+            />
+        );
     }
 
     return (
-        <View style={styles.container}>
-            <CameraView style={styles.camera} facing={facing} ref={cameraRef} />
-            <ShutterButton onPress={onShutterButtonPress} />
-            <FlipCameraButton onPress={toggleCameraFacing} />
-            <GaleryButton onPress={onPickImages} />
-            <ReturnCancelButton onPress={onReturnCancel} />
-        </View>
+        <ActiveCameraView
+            cameraRef={cameraRef}
+            facing={facing}
+            onShutter={onShutterButtonPress}
+            onToggleFacing={toggleCameraFacing}
+            onPickFromGallery={onPickImages}
+            onCancel={onReturnCancel}
+        />
     );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        marginBottom: 30,
-    },
-    message: {
-        textAlign: 'center',
-        paddingBottom: 10,
-    },
-    camera: {
-        flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-        margin: 64,
-    },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-    },
-    text: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-});
+};
 
 export default CameraScreen;
