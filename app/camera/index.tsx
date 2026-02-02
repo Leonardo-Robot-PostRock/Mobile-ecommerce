@@ -37,7 +37,6 @@ const CameraScreen = () => {
                 return;
             }
         } catch (error) {
-            console.log('Error requesting permissions:', error);
             Alert.alert('Error', 'Hubo un error al solicitar los permisos.');
         }
     };
