@@ -3,9 +3,11 @@ import { router } from 'expo-router';
 import { useRef, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 
 import { ConfirmImageButton, FlipCameraButton, GaleryButton, RetakeImageButton, ReturnCancelButton, ShutterButton } from '@/presentation/camera';
+import { MediaTypes } from '@/presentation/camera/constants/media-types';
 import { useCameraStore } from '@/presentation/camera/store/useCameraStore';
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
 
@@ -86,6 +88,26 @@ const CameraScreen = () => {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
 
+    const onPickImages = async () => {
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: MediaTypes.Images,
+            // allowsEditing: true,
+            aspect: [4, 3], // width, height
+            quality: 1,
+            allowsMultipleSelection: true,
+            selectionLimit: 5,
+        });
+
+        if (result.canceled) return;
+
+        result.assets.forEach((asset) => {
+            addSelectedImage(asset.uri);
+        });
+
+        router.dismiss();
+    }
+
     const onReturnCancel = () => {
         router.dismiss();
     }
@@ -121,7 +143,7 @@ const CameraScreen = () => {
             <CameraView style={styles.camera} facing={facing} ref={cameraRef} />
             <ShutterButton onPress={onShutterButtonPress} />
             <FlipCameraButton onPress={toggleCameraFacing} />
-            <GaleryButton onPress={() => { }} />
+            <GaleryButton onPress={onPickImages} />
             <ReturnCancelButton onPress={onReturnCancel} />
         </View>
     );
@@ -157,4 +179,5 @@ const styles = StyleSheet.create({
         color: 'white',
     },
 });
+
 export default CameraScreen;
