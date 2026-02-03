@@ -1,25 +1,44 @@
 import { Ionicons } from '@expo/vector-icons';
 
-import { Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { ActivityIndicator, Pressable, PressableProps, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import { useThemeColor } from '../hooks/useThemeColor';
 
 
 interface Props extends PressableProps {
-    icon?: keyof typeof Ionicons.glyphMap,
-    children: string,
-    style?: StyleProp<ViewStyle>
+    icon?: keyof typeof Ionicons.glyphMap;
+    children: string;
+    style?: StyleProp<ViewStyle>;
+    disabled?: boolean;
 }
 
-const ThemedButton = ({ children, icon, style, ...rest }: Props) => {
+const ThemedButton = ({ children, icon, style, disabled, ...rest }: Props) => {
     const primaryColor = useThemeColor({}, 'primary');
 
     return (
-        <Pressable {...rest} style={({ pressed }) => [
-            { backgroundColor: pressed ? primaryColor + '90' : primaryColor },
-            styles.button,
-            style
-        ]}>
-            <Text style={{ color: 'white' }}>{children}</Text>
+        <Pressable
+            {...rest}
+            disabled={disabled}
+            style={({ pressed }) => [
+                {
+                    backgroundColor: disabled
+                        ? primaryColor + '55'
+                        : pressed
+                            ? primaryColor + '90'
+                            : primaryColor,
+                },
+                styles.button,
+                disabled && styles.disabledButton,
+                style,
+            ]}
+        >
+            {disabled && (
+                <ActivityIndicator
+                    size="small"
+                    color="white"
+                    style={{ marginRight: 8 }}
+                />
+            )}
+            <Text style={{ color: 'white', opacity: disabled ? 0.7 : 1 }}>{children}</Text>
 
             {icon && (
                 <Ionicons
@@ -45,6 +64,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         paddingHorizontal: 10,
-        paddingVertical: 15
-    }
+        paddingVertical: 15,
+    },
+    disabledButton: {
+        opacity: 0.8,
+    },
 })
