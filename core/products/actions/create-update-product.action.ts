@@ -18,13 +18,40 @@ export const createUpdateProduct = (product: Partial<Product>) => {
     return createProduct(payload)
 }
 
+const prepareImages = async (images: string[]): Promise<string[]> => {
+
+    const filesImages = images.filter(img => img.includes('file'));
+    const currentImages = images.filter(img => !img.includes('file'));
+
+
+    if (filesImages.length > 0) {
+        const uploadPromises = filesImages.map(img => uploadImages(img));
+
+        const uploadedImages = await Promise.all(uploadPromises);
+
+        currentImages.push(...uploadedImages);
+    }
+
+
+    return currentImages.map(img => img.split('/').pop()!);
+}
+
+const uploadImages = async (image: string): Promise<string> => {
+
+    return image;
+}
+
 const updateProduct = async (product: Partial<Product>) => {
 
     const { id, images = [], user, ...rest } = product;
 
     try {
+
+        const checkImages = await prepareImages(images);
+
         const { data } = await productsApi.patch<Product>(`/products/${id}`, {
-            ...rest
+            ...rest,
+            images: checkImages,
         });
 
         return data;
@@ -40,8 +67,12 @@ const createProduct = async (product: Partial<Product>) => {
     const { id, images = [], user, ...rest } = product;
 
     try {
+
+        const checkImages = await prepareImages(images);
+
         const { data } = await productsApi.post<Product>('/products', {
-            ...rest
+            ...rest,
+            images: checkImages,
         });
         return data;
 
