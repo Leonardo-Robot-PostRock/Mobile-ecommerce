@@ -26,6 +26,12 @@ const ProductScreen = () => {
   }, [])
 
   useEffect(() => {
+    if (productMutation.isSuccess) {
+      clearImages();
+    }
+  }, [productMutation.isSuccess])
+
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () =>
         <MenuIconButton
