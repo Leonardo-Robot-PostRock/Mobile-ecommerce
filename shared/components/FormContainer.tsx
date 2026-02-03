@@ -14,6 +14,7 @@ const FormContainer = <T extends object>({ initialValues, children, onSubmit, va
     return (
         <Formik
             initialValues={initialValues as T}
+            enableReinitialize
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
