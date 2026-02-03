@@ -8,9 +8,8 @@ import { useRef } from "react"
 
 export const useProduct = (productId: string) => {
 
-    const queryClient = useQueryClient()
-    const productIdRef = useRef(productId)
-
+    const queryClient = useQueryClient();
+    const productIdRef = useRef(productId);
 
     const productQuery = useQuery({
         queryKey: ['products', productId],
@@ -22,19 +21,24 @@ export const useProduct = (productId: string) => {
     const productMutation = useMutation({
         mutationFn: async (data: Product) => createUpdateProduct({
             ...data,
-            id: productIdRef.current
+            id: productIdRef.current,
         }),
 
         onSuccess: (data: Product) => {
-
             productIdRef.current = data.id;
 
-            //Invalidar product queries
-            queryClient.invalidateQueries({ queryKey: ['products'] })
-            queryClient.invalidateQueries({ queryKey: ['products', data.id] })
+            // Invalidar product queries
+            queryClient.invalidateQueries({ queryKey: ['products', 'infinite'] });
+            queryClient.invalidateQueries({ queryKey: ['products', data.id] });
 
-            Alert.alert('Producto actualizado', `${data.title} ha sido actualizado correctamente.`)
-        }
+            Alert.alert('Producto actualizado', `${data.title} ha sido actualizado correctamente.`);
+        },
+
+        onError: () => {
+            const serverMessage = 'No se pudo actualizar el producto';
+
+            Alert.alert('Error al actualizar', serverMessage);
+        },
     })
 
     return {
