@@ -66,7 +66,7 @@ const ProductScreen = () => {
       initialValues={product}
       selectedImages={selectedImages}
       onSubmit={handleSubmit}
-      isPending={productMutation.isPending}
+      disabled={productMutation.isPending}
     />
   )
 }
