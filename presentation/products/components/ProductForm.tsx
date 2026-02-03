@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import { FormikHelpers } from 'formik';
-import { KeyboardAvoidingView, View } from 'react-native';
+import { KeyboardAvoidingView, RefreshControl, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Product, Size } from '@/core/products/interfaces/product.interface';
@@ -21,6 +21,7 @@ import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
 import { ThemedView } from '@/presentation/theme/components/ThemedView';
 import FormContainer from '@/shared/components/FormContainer';
+import { useProduct } from '../hooks/useProduct';
 
 interface Props {
     initialValues: Product;
@@ -38,6 +39,8 @@ const ProductForm = ({
 
     const { id } = useLocalSearchParams();
 
+    const { productQuery } = useProduct(`${id}`);
+
     const toggleInArray = <T,>(array: T[], item: T): T[] =>
         array.includes(item)
             ? array.filter(i => i !== item)
@@ -50,7 +53,16 @@ const ProductForm = ({
         >
             {({ handleChange, setFieldValue, handleSubmit, values }) => (
                 <KeyboardAvoidingView behavior={KEYBOARD_BEHAVIOR}>
-                    <ScrollView>
+                    <ScrollView
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={productQuery.isFetching}
+                                onRefresh={async () => {
+                                    await productQuery.refetch();
+                                }}
+                            />
+                        }
+                    >
                         <ProductImages images={[...values.images, ...selectedImages]} />
 
                         <ThemedView style={{ marginHorizontal: DEFAULT_MARGIN, marginTop: 10 }}>
