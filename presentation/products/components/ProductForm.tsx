@@ -26,14 +26,14 @@ interface Props {
     initialValues: Product;
     selectedImages: string[];
     onSubmit: (values: Product, formikHelpers: FormikHelpers<Product>) => void;
-    isPending?: boolean;
+    disabled?: boolean;
 }
 
 const ProductForm = ({
     initialValues,
     selectedImages,
     onSubmit,
-    isPending = false,
+    disabled = false,
 }: Props) => {
 
     const { id } = useLocalSearchParams();
@@ -98,8 +98,8 @@ const ProductForm = ({
                         </ThemedView>
 
                         <View style={CONTAINER_BOTTOM_STYLE}>
-                            <ThemedButton style={BUTTON_STYLE} icon="pencil-outline" onPress={() => handleSubmit()} disabled={isPending}>
-                                {id === 'new' ? 'Crear producto' : 'Actualizar producto'}
+                            <ThemedButton style={BUTTON_STYLE} icon="pencil-outline" onPress={() => handleSubmit()} disabled={disabled}>
+                                {id === 'new' ? 'Crear producto' : 'Actualizar'}
                             </ThemedButton>
                         </View>
                     </ScrollView>
