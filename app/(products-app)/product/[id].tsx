@@ -58,7 +58,7 @@ const ProductScreen = () => {
   const product = productQuery.data!;
 
   const handleSubmit = (values: Product) => {
-    productMutation.mutate(values);
+    productMutation.mutate({ ...values, images: [...values.images, ...selectedImages] });
   }
 
   return (
