@@ -20,9 +20,8 @@ export const createUpdateProduct = (product: Partial<Product>) => {
 
 const prepareImages = async (images: string[]): Promise<string[]> => {
 
-    const filesImages = images.filter(img => img.includes('file'));
-    const currentImages = images.filter(img => !img.includes('file'));
-
+    const filesImages = images.filter(img => img.startsWith('file'));
+    const currentImages = images.filter(img => !img.startsWith('file'));
 
     if (filesImages.length > 0) {
         const uploadPromises = filesImages.map(img => uploadImages(img));
